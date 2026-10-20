@@ -2,8 +2,8 @@
 
 **Disciplina:** Serviços Web  
 **Professor:** Élder F. F. Bernardi  
-**Prazo de entrega do report:** 08/05/2026 (sexta-feira)  
-**Modalidade:** Dupla ou trio
+**Prazo de entrega do report:** 03/11/2026 (quarta)  
+**Modalidade:** Dupla ou individual
 
 ---
 
