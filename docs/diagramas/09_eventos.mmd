@@ -1,0 +1,7 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart TB
+ O["order-service"] -->|"Publica PedidoCriado"| B["Broker · RabbitMQ ou Redis"]
+ O -.-> CONT["Continua processamento"]
+ B --> P["payment-service"]
+ B --> S["stock-service"]
+ B --> E["email-service"]

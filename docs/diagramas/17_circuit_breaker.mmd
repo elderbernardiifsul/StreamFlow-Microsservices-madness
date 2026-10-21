@@ -1,0 +1,11 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart TB
+ subgraph F["FECHADO · operação normal"]
+  A["Serviço A"] -->|"Requisição permitida"| B["Serviço B"]
+ end
+ subgraph O["ABERTO · proteção"]
+  AA["Serviço A"] --> CB["Circuit breaker"]
+  CB --> FB["Fallback configurado ou erro imediato"]
+  BB["Serviço B degradado · não recebe a chamada"]
+ end
+ style O fill:#fff3f2,stroke:#cd191e

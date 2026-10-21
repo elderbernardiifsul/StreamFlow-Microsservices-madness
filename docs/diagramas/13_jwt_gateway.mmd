@@ -1,0 +1,4 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart TB
+ C["Cliente com JWT"] --> G["Gateway valida assinatura e token"]
+ G -->|"x-user-id: 42 / x-user-role: admin"| S["Serviço interno confia no gateway"]

@@ -1,0 +1,19 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart TB
+ subgraph F1["1 · Monolito intacto"]
+  C1["Cliente"] --> M1["Auth + Tasks + Users"]
+ end
+ subgraph F2["2 · Extração parcial"]
+  C2["Cliente"] --> G2["Gateway"]
+  G2 --> M2["Monolito: Tasks + Users"]
+  G2 --> A2["Auth isolado"]
+ end
+ subgraph F3["3 · Extração completa"]
+  C3["Cliente"] --> G3["Gateway"]
+  G3 --> A3["Auth"]
+  G3 --> T3["Tasks"]
+  G3 --> U3["Users"]
+ end
+
+ F1 -->|"Extrair autenticação"| F2
+ F2 -->|"Extrair tarefas e usuários"| F3

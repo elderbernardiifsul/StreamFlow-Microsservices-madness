@@ -67,26 +67,9 @@ Uma aplicação monolítica é aquela em que **todo o código** — desde a inte
 
 A API que você construiu no Trabalho I é um exemplo clássico de monolito: rotas de autenticação, rotas de tarefas, middlewares, serviços e DAOs — tudo vive no mesmo projeto, compartilhando o mesmo processo Node.js e o mesmo banco de dados.
 
-```
-┌─────────────────────────────────────────────────┐
-│              APLICAÇÃO MONOLÍTICA                │
-│                                                  │
-│  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
-│  │  Auth    │ │  Tarefas │ │    Usuários      │ │
-│  │  Routes  │ │  Routes  │ │    Routes        │ │
-│  └────┬─────┘ └────┬─────┘ └───────┬──────────┘ │
-│       │             │               │            │
-│  ┌────┴─────────────┴───────────────┴──────────┐ │
-│  │          Controllers + Services             │ │
-│  └─────────────────────┬───────────────────────┘ │
-│                        │                         │
-│  ┌─────────────────────┴───────────────────────┐ │
-│  │              Banco de Dados                 │ │
-│  └─────────────────────────────────────────────┘ │
-│                                                  │
-│          Um único processo · Uma porta           │
-└─────────────────────────────────────────────────┘
-```
+![Aplicação monolítica: rotas de autenticação, tarefas e usuários compartilham lógica, banco e processo.](diagramas/01_monolito.svg)
+
+*Aplicação monolítica: rotas de autenticação, tarefas e usuários compartilham lógica, banco e processo.*
 
 **Vantagens do monolito** (sim, elas existem e são importantes):
 
@@ -121,28 +104,9 @@ A arquitetura de microsserviços é um estilo arquitetural que estrutura uma apl
 - Comunica-se com outros serviços por meio de **interfaces bem definidas** (APIs REST, mensagens, eventos)
 - Pode ser escrito em **linguagens e tecnologias diferentes** (poliglotismo)
 
-```
-┌────────────┐     ┌────────────┐     ┌────────────┐
-│  Serviço   │     │  Serviço   │     │  Serviço   │
-│    Auth    │     │  Tarefas   │     │  Usuários  │
-│            │     │            │     │            │
-│ ┌────────┐ │     │ ┌────────┐ │     │ ┌────────┐ │
-│ │ BD own │ │     │ │ BD own │ │     │ │ BD own │ │
-│ └────────┘ │     │ └────────┘ │     │ └────────┘ │
-│  :3001     │     │  :3002     │     │  :3003     │
-└─────┬──────┘     └─────┬──────┘     └──────┬─────┘
-      │                  │                    │
-      └──────────────────┼────────────────────┘
-                         │
-                  ┌──────┴──────┐
-                  │ API Gateway │
-                  │   :8080     │
-                  └──────┬──────┘
-                         │
-                    ┌────┴────┐
-                    │ Cliente │
-                    └─────────┘
-```
+![Cliente acessa um gateway, que encaminha requisições a três serviços com bancos próprios.](diagramas/02_microsservicos.svg)
+
+*Cliente acessa um gateway, que encaminha requisições a três serviços com bancos próprios.*
 
 ### 2.4 Comparação direta
 
@@ -181,20 +145,9 @@ A arquitetura de microsserviços não é definida apenas pela separação físic
 
 Cada microsserviço deve encapsular uma **capacidade de negócio** completa e coesa. Não se trata de dividir por camada técnica (um serviço para controllers, outro para DAOs), mas sim por **domínio funcional**.
 
-```
-  ✗ Divisão ERRADA (por camada técnica)    ✓ Divisão CORRETA (por domínio)
+![Comparação entre divisão por camadas técnicas e serviços organizados por domínio.](diagramas/03_decomposicao.svg)
 
-  ┌──────────────┐                         ┌──────────────┐ ┌──────────────┐
-  │  Serviço de  │                         │  Serviço de  │ │  Serviço de  │
-  │  Controllers │                         │  Pedidos     │ │  Pagamentos  │
-  ├──────────────┤                         │              │ │              │
-  │  Serviço de  │                         │ Controller   │ │ Controller   │
-  │  Services    │                         │ Service      │ │ Service      │
-  ├──────────────┤                         │ DAO + BD     │ │ DAO + BD     │
-  │  Serviço de  │                         └──────────────┘ └──────────────┘
-  │  DAOs        │
-  └──────────────┘
-```
+*Comparação entre divisão por camadas técnicas e serviços organizados por domínio.*
 
 ### 3.2 Autonomia e Independência de Deploy
 
@@ -214,19 +167,9 @@ Este é um dos princípios mais importantes — e mais difíceis de aceitar para
 | Tecnologia livre        | `user-service` pode usar PostgreSQL, `logs-service` pode usar MongoDB |
 | Encapsulamento          | Nenhum serviço acessa diretamente o banco de outro                    |
 
-```
-  ✗ ERRADO: Banco compartilhado           ✓ CORRETO: Banco por serviço
+![Três serviços compartilhando um banco comparados com três serviços donos de seus próprios bancos.](diagramas/04_bancos.svg)
 
-  ┌───────┐  ┌───────┐  ┌───────┐        ┌───────┐  ┌───────┐  ┌───────┐
-  │Svc A  │  │Svc B  │  │Svc C  │        │Svc A  │  │Svc B  │  │Svc C  │
-  └───┬───┘  └───┬───┘  └───┬───┘        └───┬───┘  └───┬───┘  └───┬───┘
-      │          │          │                 │          │          │
-      └──────────┼──────────┘            ┌────┴───┐ ┌───┴────┐ ┌──┴─────┐
-           ┌─────┴─────┐                 │ BD-A   │ │ BD-B   │ │ BD-C   │
-           │    BD     │                 │(Postgres)│(MongoDB)│(SQLite) │
-           │(Compartilhado)│             └────────┘ └────────┘ └────────┘
-           └───────────┘
-```
+*Três serviços compartilhando um banco comparados com três serviços donos de seus próprios bancos.*
 
 **Consequência direta:** como não há joins entre bancos distintos, quando o `order-service` precisa do nome do cliente, ele faz uma chamada HTTP ao `user-service`. Isso gera latência de rede, mas garante o desacoplamento. Existem estratégias para mitigar esse custo, como cache local e replicação de dados via eventos — temas que abordaremos nas seções de comunicação e resiliência.
 
@@ -276,33 +219,9 @@ O **Domain-Driven Design (DDD)**, proposto por Eric Evans, oferece o vocabulári
 
 **Exemplo concreto — Sistema de e-commerce:**
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    E-COMMERCE                           │
-│                                                         │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐ │
-│  │  Catálogo   │  │   Pedidos   │  │   Pagamentos    │ │
-│  │             │  │             │  │                 │ │
-│  │ - Produto   │  │ - Pedido    │  │ - Transação     │ │
-│  │ - Categoria │  │ - ItemPedido│  │ - Fatura        │ │
-│  │ - Estoque   │  │ - Status    │  │ - Reembolso     │ │
-│  │             │  │             │  │                 │ │
-│  │ Bounded     │  │ Bounded     │  │ Bounded         │ │
-│  │ Context 1   │  │ Context 2   │  │ Context 3       │ │
-│  └─────────────┘  └─────────────┘  └─────────────────┘ │
-│                                                         │
-│  ┌─────────────┐  ┌─────────────┐                       │
-│  │   Entregas  │  │  Clientes   │                       │
-│  │             │  │             │                       │
-│  │ - Remessa   │  │ - Perfil    │                       │
-│  │ - Rastreio  │  │ - Endereço  │                       │
-│  │ - Frete     │  │ - Preferências                      │
-│  │             │  │             │                       │
-│  │ Bounded     │  │ Bounded     │                       │
-│  │ Context 4   │  │ Context 5   │                       │
-│  └─────────────┘  └─────────────┘                       │
-└─────────────────────────────────────────────────────────┘
-```
+![Cinco contextos de negócio de um e-commerce: catálogo, pedidos, pagamentos, entregas e clientes.](diagramas/05_contextos.svg)
+
+*Cinco contextos de negócio de um e-commerce: catálogo, pedidos, pagamentos, entregas e clientes.*
 
 Observe que "Produto" aparece no contexto de Catálogo e pode ser referenciado em Pedidos, mas cada contexto tem sua **própria representação**. No Catálogo, um produto tem descrição detalhada, fotos e SEO. No Pedido, o "produto" é apenas um ID, um nome e um preço unitário — uma versão simplificada.
 
@@ -312,35 +231,9 @@ Quando a decomposição parte de um monolito existente (o cenário mais comum na
 
 **Fases da migração:**
 
-```
-Fase 1: Monolito intacto         Fase 2: Extração parcial
-┌───────────────────┐            ┌───────────────────┐
-│    Monolito       │            │    Monolito       │
-│                   │            │  (sem Auth)       │
-│ Auth + Tasks +    │            │  Tasks + Users    │
-│ Users             │            └────────┬──────────┘
-└────────┬──────────┘                     │
-         │                          ┌─────┴─────┐
-    ┌────┴────┐                     │  Gateway   │
-    │ Cliente │                     └─────┬─────┘
-    └─────────┘                           │
-                                    ┌─────┴─────┐
-                                    │ Auth Svc   │  ← Novo
-                                    │ (isolado)  │
-                                    └────────────┘
+![Migração gradual: monolito intacto, extração da autenticação e separação dos demais serviços.](diagramas/06_extracao.svg)
 
-Fase 3: Extração completa
-┌────────────┐  ┌────────────┐  ┌────────────┐
-│ Auth Svc   │  │ Tasks Svc  │  │ Users Svc  │
-└─────┬──────┘  └─────┬──────┘  └─────┬──────┘
-      └───────────────┼───────────────┘
-                ┌─────┴─────┐
-                │  Gateway   │
-                └─────┬─────┘
-                ┌─────┴─────┐
-                │  Cliente   │
-                └────────────┘
-```
+*Migração gradual: monolito intacto, extração da autenticação e separação dos demais serviços.*
 
 **Passos práticos do Strangler Fig:**
 
@@ -372,13 +265,9 @@ Em um monolito, módulos se comunicam por chamadas de função em memória — r
 
 Na comunicação síncrona, o serviço chamador envia uma requisição e **aguarda a resposta** antes de continuar o processamento. É o modelo que você já conhece das APIs REST.
 
-```
-┌──────────────┐    HTTP GET /users/42    ┌──────────────┐
-│ order-service │ ──────────────────────→ │ user-service  │
-│               │ ←────────────────────── │               │
-│  (aguarda)    │    200 { name: "Ana" }  │               │
-└──────────────┘                          └──────────────┘
-```
+![Order-service aguarda a resposta HTTP do user-service antes de continuar.](diagramas/07_sincrono.svg)
+
+*Order-service aguarda a resposta HTTP do user-service antes de continuar.*
 
 **Protocolos comuns:**
 
@@ -390,13 +279,9 @@ Na comunicação síncrona, o serviço chamador envia uma requisição e **aguar
 
 **Riscos da comunicação síncrona em cadeia:**
 
-```
-  Cliente → Gateway → Svc A → Svc B → Svc C → Svc D
-                                                 ↑
-                                          Se Svc D cair,
-                                       TUDO para de funcionar
-                                     (cascata de falhas)
-```
+![Cadeia de dependências síncronas: uma falha em D pode se propagar até o cliente.](diagramas/08_cascata.svg)
+
+*Cadeia de dependências síncronas: uma falha em D pode se propagar até o cliente.*
 
 Quando serviços dependem sincronamente uns dos outros em cadeia, a **disponibilidade do sistema** é o produto das disponibilidades individuais. Se cada serviço tem 99,5% de uptime, uma cadeia de 4 serviços resulta em: `0,995⁴ = 98,01%` — uma degradação significativa.
 
@@ -404,20 +289,9 @@ Quando serviços dependem sincronamente uns dos outros em cadeia, a **disponibil
 
 Na comunicação assíncrona, o serviço emissor publica uma mensagem ou evento e **continua processando imediatamente**, sem aguardar resposta. Um componente intermediário (message broker) cuida da entrega.
 
-```
-┌──────────────┐   Evento: "PedidoCriado"   ┌─────────────┐
-│ order-service │ ────────────────────────→  │   Broker    │
-│ (continua)   │                             │ (RabbitMQ / │
-└──────────────┘                             │  Redis)     │
-                                             └──────┬──────┘
-                                                    │
-                                    ┌───────────────┼───────────────┐
-                                    ↓               ↓               ↓
-                             ┌────────────┐  ┌────────────┐  ┌────────────┐
-                             │ payment-   │  │ stock-     │  │ email-     │
-                             │ service    │  │ service    │  │ service    │
-                             └────────────┘  └────────────┘  └────────────┘
-```
+![Order-service publica PedidoCriado no broker; pagamento, estoque e email consomem o evento.](diagramas/09_eventos.svg)
+
+*Order-service publica PedidoCriado no broker; pagamento, estoque e email consomem o evento.*
 
 **Modelos de mensageria:**
 
@@ -445,15 +319,9 @@ A maioria dos sistemas de produção combina ambos os padrões:
 - **Síncrono** para operações que exigem resposta imediata ao usuário (consultas, validações)
 - **Assíncrono** para efeitos colaterais e processamentos em segundo plano (notificações, relatórios, sincronização)
 
-```
-Exemplo: Fluxo de criação de pedido
+![Criação de pedido com resposta HTTP e publicação de evento para consumidores independentes.](diagramas/10_pedido.svg)
 
-  1. Cliente → POST /orders (síncrono, resposta imediata: "pedido criado")
-  2. order-service → Publica evento "PedidoCriado" (assíncrono)
-  3. payment-service → Consome evento, processa pagamento
-  4. stock-service → Consome evento, reserva estoque
-  5. notification-service → Consome evento, envia email
-```
+*Criação de pedido com resposta HTTP e publicação de evento para consumidores independentes.*
 
 > **Para o escopo desta disciplina:** A implementação prática (Seção 11) utilizará comunicação **síncrona via REST** entre os microsserviços, por ser a abordagem que vocês já dominam. A comunicação assíncrona é apresentada aqui para completude conceitual e preparação para cenários reais de produção.
 
@@ -465,33 +333,17 @@ Exemplo: Fluxo de criação de pedido
 
 Sem um ponto de entrada centralizado, o cliente precisaria conhecer o endereço de cada microsserviço individualmente. Em um sistema com 10 serviços, o frontend teria que gerenciar 10 URLs diferentes, lidar com autenticação em cada um e enfrentar problemas de CORS.
 
-```
-  ✗ SEM Gateway (cliente lida com tudo)
+![Sem gateway, o cliente conhece os endereços de quatro serviços.](diagramas/11_sem_gateway.svg)
 
-  ┌─────────┐
-  │ Cliente │──→ http://auth:3001/login
-  │         │──→ http://tasks:3002/tasks
-  │         │──→ http://users:3003/users
-  │         │──→ http://reports:3004/reports
-  └─────────┘
-  Problema: acoplamento direto, CORS, sem ponto central de segurança
-```
+*Sem gateway, o cliente conhece os endereços de quatro serviços.*
 
 ### 6.2 A Solução: API Gateway
 
 O API Gateway é um componente que atua como **ponto de entrada único** para todas as requisições externas. Ele recebe as requisições do cliente e as encaminha ao serviço interno adequado.
 
-```
-  ✓ COM Gateway (ponto único de entrada)
+![Com gateway, o cliente conhece um endereço e o gateway encaminha as chamadas aos serviços.](diagramas/12_gateway.svg)
 
-  ┌─────────┐     ┌───────────────┐     ┌──────────┐
-  │ Cliente │────→│  API Gateway  │────→│ auth-svc │
-  │         │     │   :8080       │────→│ task-svc │
-  └─────────┘     │               │────→│ user-svc │
-                  └───────────────┘     └──────────┘
-
-  Cliente conhece apenas: http://gateway:8080
-```
+*Com gateway, o cliente conhece um endereço e o gateway encaminha as chamadas aos serviços.*
 
 ### 6.3 Responsabilidades do API Gateway
 
@@ -701,20 +553,17 @@ Existem duas abordagens principais:
 
 **Abordagem 1 — Validação centralizada no Gateway:**
 
-```
-Cliente → Gateway (valida JWT) → Serviço interno (confia no Gateway)
-                                  req.headers["x-user-id"] = "42"
-                                  req.headers["x-user-role"] = "admin"
-```
+![Gateway valida o JWT e encaminha identidade e papel ao serviço interno.](diagramas/13_jwt_gateway.svg)
+
+*Gateway valida o JWT e encaminha identidade e papel ao serviço interno.*
 
 O Gateway valida o token e propaga as informações do usuário via **headers internos**. Os serviços internos confiam no Gateway e não revalidam.
 
 **Abordagem 2 — Validação distribuída (cada serviço valida):**
 
-```
-Cliente → Gateway (repassa token) → Serviço interno (valida JWT localmente)
-                                     jwt.verify(token, PUBLIC_KEY)
-```
+![Gateway encaminha o token e o serviço interno verifica o JWT com a chave pública.](diagramas/14_jwt_local.svg)
+
+*Gateway encaminha o token e o serviço interno verifica o JWT com a chave pública.*
 
 Cada serviço valida o token de forma independente. Isso é mais seguro (zero trust), mas exige que todos os serviços tenham acesso à chave de verificação.
 
@@ -731,20 +580,9 @@ Com **HS256**, o mesmo segredo que assina o token também o verifica. Em micross
 
 Com **RS256**, apenas o `auth-service` possui a chave privada (assina tokens). Os demais serviços possuem apenas a chave pública (verificam tokens). Um serviço comprometido **não pode forjar tokens** — pode apenas verificar os existentes.
 
-```
-┌──────────────────┐
-│   auth-service   │  Possui: CHAVE PRIVADA (assina)
-│                  │  Expõe:  GET /.well-known/jwks.json
-└────────┬─────────┘
-         │ publica chave pública
-         ▼
-┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-│  task-service    │  │  user-service    │  │  report-service  │
-│                  │  │                  │  │                  │
-│ Possui: CHAVE    │  │ Possui: CHAVE    │  │ Possui: CHAVE    │
-│ PÚBLICA (verifica)│  │ PÚBLICA (verifica)│  │ PÚBLICA (verifica)│
-└──────────────────┘  └──────────────────┘  └──────────────────┘
-```
+![Auth mantém a chave privada para assinatura; outros serviços obtêm a chave pública para verificação.](diagramas/15_chaves.svg)
+
+*Auth mantém a chave privada para assinatura; outros serviços obtêm a chave pública para verificação.*
 
 ### 7.3 Implementação Prática com RS256
 
@@ -824,16 +662,9 @@ Para microsserviços, Docker é a tecnologia que viabiliza na prática a indepen
 | **Registry**   | Padaria central   | Repositório de imagens (Docker Hub, GitHub Container Registry) |
 | **Volume**     | Vasilha separada  | Mecanismo de persistência de dados fora do container           |
 
-```
-  ┌───────────────────────────────────────────────────┐
-  │  Dockerfile → (docker build) → Imagem            │
-  │                                   │               │
-  │                          (docker run)             │
-  │                                   │               │
-  │                              Container            │
-  │                          (instância viva)         │
-  └───────────────────────────────────────────────────┘
-```
+![Dockerfile define a construção da imagem; a execução da imagem cria um contêiner.](diagramas/16_docker.svg)
+
+*Dockerfile define a construção da imagem; a execução da imagem cria um contêiner.*
 
 ### 8.3 Instalação
 
@@ -1751,15 +1582,9 @@ app.get("/health", (req, res) => {
 
 O padrão Circuit Breaker previne **cascatas de falha**. Funciona como um disjuntor elétrico: quando detecta que um serviço downstream está falhando repetidamente, "abre o circuito" e retorna uma resposta de fallback imediata, evitando que requisições continuem sendo enviadas ao serviço degradado.
 
-```
-  Estado FECHADO (normal)        Estado ABERTO (proteção)
-  ┌─────┐     ┌─────┐           ┌─────┐     ┌─────┐
-  │Svc A│────→│Svc B│           │Svc A│──X  │Svc B│ (fora do ar)
-  └─────┘     └─────┘           └──┬──┘     └─────┘
-  Requisições passam              │
-  normalmente                 Retorna fallback
-                              imediatamente
-```
+![Circuito fechado permite chamadas; circuito aberto interrompe chamadas e retorna fallback quando configurado.](diagramas/17_circuit_breaker.svg)
+
+*Circuito fechado permite chamadas; circuito aberto interrompe chamadas e retorna fallback quando configurado.*
 
 **Implementação com a biblioteca `opossum`:**
 

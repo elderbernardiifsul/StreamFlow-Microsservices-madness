@@ -8,6 +8,19 @@
 **Instituição:** IFSul — Campus Passo Fundo
 **Revisão:** 20/10/2026
 
+## Em resumo: o que você precisa fazer
+
+Sua tarefa é investigar a arquitetura da StreamFlow e explicar **quais problemas existem, suas causas e consequências**, propondo decisões justificadas. A entrega obrigatória é um relatório crítico com evidências e defesa oral; não é necessário reescrever o sistema.
+
+1. **Estude:** leia e compreenda o guia obrigatório ([HTML no navegador](https://elderbernardiifsul.github.io/StreamFlow-Microsservices-madness/guia_completo_microsservicos.html) ou [Markdown na IDE](docs/guia_completo_microsservicos.md)); consulte a arquitetura e o vídeo indicados abaixo.
+2. **Prepare:** faça o fork, siga o [SETUP](docs/SETUP.md), execute o laboratório e registre a versão analisada.
+3. **Investigue:** percorra o código e formule hipóteses sobre os comportamentos que pretende observar.
+4. **Experimente:** realize os cenários do [DEBUG](docs/DEBUG.md), registrando comandos, respostas HTTP, tempos e logs; restaure o ambiente entre os testes.
+5. **Analise:** relacione as evidências aos conceitos do guia e diferencie observações, hipóteses e premissas fictícias. Discuta causas, consequências e alternativas.
+6. **Entregue e defenda:** organize o relatório nas seis seções exigidas, inclua evidências e referências, publique no seu fork e envie o link no Classroom. Prepare a defesa oral das decisões.
+
+Os requisitos detalhados, o protocolo de medições e a rubrica estão nas seções seguintes.
+
 ---
 
 ## Contexto

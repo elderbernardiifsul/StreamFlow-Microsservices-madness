@@ -1,0 +1,11 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart TB
+ subgraph CAM["Divisão por camada técnica · acoplamento entre serviços"]
+  C["Serviço Controllers"] --> S["Serviço Services"] --> D["Serviço DAOs"]
+ end
+ subgraph DOM["Divisão por domínio · capacidade de negócio completa"]
+  P["Pedidos: Controller + Service + DAO + BD"]
+  PG["Pagamentos: Controller + Service + DAO + BD"]
+ end
+ style CAM fill:#fff3f2,stroke:#cd191e
+ style DOM fill:#edf8ef,stroke:#2f9e41

@@ -1,0 +1,5 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+flowchart LR
+ C["Cliente"] --> G["Gateway"] --> A["Serviço A"] --> B["Serviço B"] --> CC["Serviço C"] --> D["Serviço D indisponível"]
+ D -. "Falha pode se propagar sem isolamento" .-> CC
+ style D fill:#fff3f2,stroke:#cd191e,color:#8c1419

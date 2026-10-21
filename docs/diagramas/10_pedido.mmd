@@ -1,0 +1,18 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "16px", "primaryColor": "#edf8ef", "primaryTextColor": "#173c26", "primaryBorderColor": "#2f9e41", "lineColor": "#52675a", "secondaryColor": "#f0f4f8", "tertiaryColor": "#ffffff", "clusterBkg": "#f7faf8", "clusterBorder": "#9bbda4"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 32, "rankSpacing": 45}, "sequence": {"useMaxWidth": false, "wrap": true}}}%%
+sequenceDiagram
+ participant C as Cliente
+ participant O as order-service
+ participant B as Broker
+ participant P as payment-service
+ participant S as stock-service
+ participant N as notification-service
+ C->>O: POST /orders
+ O-->>C: Pedido criado
+ O->>B: PedidoCriado
+ par Consumidores independentes
+  B-->>P: Processar pagamento
+ and
+  B-->>S: Reservar estoque
+ and
+  B-->>N: Enviar email
+ end
