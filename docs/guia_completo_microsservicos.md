@@ -5,6 +5,8 @@
 **Disciplina:** Serviços Web (PF_CC.44)  
 **Curso:** Ciência da Computação — IFSul, Campus Passo Fundo  
 **Professor:** Élder F. F. Bernardi  
+**Instituição:** IFSul — Campus Passo Fundo  
+**Nível:** Graduação — Ciência da Computação  
 **Unidade:** 2 — Tecnologias de Serviços Web  
 **Contexto:** Material de apoio às Aulas 8 e 9 (Microsserviços + Docker) e ao Trabalho Final
 

@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços Web (PF_CC.44) - Material Didático</title>
+  <style>
+    
+
+    :root {
+      --ifsul-verde: #2f9e41;
+      --ifsul-verde-escuro: #1d7a2d;
+      --ifsul-vermelho: #cd191e;
+      --bg: #f4f6f8;
+      --texto: #1f2933;
+      --muted: #6b7c86;
+      --borda: #d9e2e8;
+      --superficie: #ffffff;
+      --codigo-bg: #f7faf9;
+    }
+
+    
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef5ef 0%, var(--bg) 220px);
+      color: var(--texto);
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.7;
+      padding: 32px 16px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--superficie);
+      border-radius: 16px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(47, 158, 65, 0.12);
+    }
+
+    .hero {
+      padding: 28px 32px 20px;
+      background:
+        linear-gradient(135deg, rgba(47, 158, 65, 0.14), rgba(29, 122, 45, 0.06)),
+        linear-gradient(180deg, #ffffff, #f7fbf8);
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.15;
+      color: var(--ifsul-verde-escuro);
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      color: #41515b;
+      max-width: 70ch;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    main {
+      padding: 32px;
+    }
+
+    main h1,
+    main h2,
+    main h3,
+    main h4,
+    main h5,
+    main h6 {
+      color: var(--ifsul-verde-escuro);
+      line-height: 1.25;
+    }
+
+    main h1 { font-size: 2rem; }
+    main h2 {
+      font-size: 1.5rem;
+      margin-top: 2.3rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(47, 158, 65, 0.18);
+    }
+    main h3 { font-size: 1.2rem; margin-top: 1.8rem; }
+
+    p, ul, ol, table, blockquote, pre {
+      margin: 1rem 0;
+    }
+
+    code, pre code {
+      font-family: 'Fira Code', monospace;
+    }
+
+    code {
+      background: rgba(47, 158, 65, 0.08);
+      color: #14532d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      background: #f8faf9;
+      border: 1px solid rgba(47, 158, 65, 0.18);
+      border-left: 5px solid var(--ifsul-verde);
+      border-radius: 12px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      color: #1f2933;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: 0.88em;
+      line-height: 1.6;
+    }
+
+    /* Syntax highlighting — light theme (print-friendly) */
+    .hljs-keyword,
+    .hljs-selector-tag { color: #8839ef; }
+    .hljs-built_in { color: #1e66f5; }
+    .hljs-string,
+    .hljs-attr { color: #40a02b; }
+    .hljs-number,
+    .hljs-literal { color: #d2691e; }
+    .hljs-comment { color: #7c7f93; font-style: italic; }
+    .hljs-function .hljs-title,
+    .hljs-title.function_ { color: #1e66f5; }
+    .hljs-variable,
+    .hljs-params { color: #1f2933; }
+    .hljs-operator,
+    .hljs-punctuation { color: #04a5e5; }
+    .hljs-meta,
+    .hljs-tag { color: #d20f39; }
+    .hljs-name { color: #d20f39; }
+    .hljs-attribute { color: #df8e1d; }
+    .hljs-regexp { color: #ea76cb; }
+    .hljs-type,
+    .hljs-title.class_ { color: #df8e1d; }
+
+    blockquote {
+      margin-left: 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--ifsul-verde);
+      background: rgba(47, 158, 65, 0.06);
+      color: #244234;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .markdown-alert {
+      margin: 1.4em 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--ifsul-verde);
+      background: rgba(47, 158, 65, 0.06);
+      border-radius: 0 12px 12px 0;
+    }
+    .markdown-alert > :last-child { margin-bottom: 0; }
+    .markdown-alert-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 6px;
+      font-weight: 700;
+    }
+    .markdown-alert-title svg { fill: currentColor; }
+    .markdown-alert-note { border-left-color: #1f6feb; background: rgba(31, 111, 235, 0.06); }
+    .markdown-alert-note .markdown-alert-title { color: #1f6feb; }
+    .markdown-alert-tip { border-left-color: var(--ifsul-verde); }
+    .markdown-alert-tip .markdown-alert-title { color: var(--ifsul-verde-escuro); }
+    .markdown-alert-important { border-left-color: #8250df; background: rgba(130, 80, 223, 0.06); }
+    .markdown-alert-important .markdown-alert-title { color: #8250df; }
+    .markdown-alert-warning { border-left-color: #bf8700; background: rgba(191, 135, 0, 0.08); }
+    .markdown-alert-warning .markdown-alert-title { color: #9a6700; }
+    .markdown-alert-caution { border-left-color: var(--ifsul-vermelho); background: rgba(205, 25, 30, 0.06); }
+    .markdown-alert-caution .markdown-alert-title { color: var(--ifsul-vermelho); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--borda);
+      font-size: 0.95rem;
+    }
+
+    thead th {
+      background: var(--ifsul-verde);
+      color: white;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--borda);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fafcfb;
+    }
+
+    a {
+      color: var(--ifsul-verde-escuro);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    main { min-width: 0; overflow-wrap: anywhere; }
+    pre { max-width: 100%; overflow-wrap: normal; }
+    table { display: block; max-width: 100%; overflow-x: auto; }
+    :target { scroll-margin-top: 24px; }
+    a:focus-visible { outline: 3px solid #1d7a2d; outline-offset: 3px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 18px 32px 28px;
+      border-top: 1px solid var(--borda);
+      color: var(--muted);
+      font-size: 0.82rem;
+      background: #fbfcfc;
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 18px 10px 28px;
+      }
+
+      .hero,
+      main,
+      footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .page {
+        border-radius: 12px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border: none;
+      }
+
+      .hero {
+        background: white;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      pre,
+      blockquote,
+      .markdown-alert,
+      table,
+      img {
+        page-break-inside: avoid;
+      }
+
+      /* No papel não há barra de rolagem: linha de código longa quebra em vez de sumir */
+      pre,
+      pre code {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      @page {
+        size: A4;
+        margin: 1.8cm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <span>IFSul — Campus Passo Fundo</span>
+        <span>Graduação — Ciência da Computação</span>
+      </div>
+      <h1>Serviços Web (PF_CC.44)</h1>
+      <div class="meta">
+        <div class="meta-card"><strong>Professor</strong>Élder F. F. Bernardi</div>
+        <div class="meta-card"><strong>Curso</strong>Ciência da Computação — IFSul, Campus Passo Fundo</div>
+      </div>
+    </section>
+    <main>
+      <blockquote>
+<p>Revisão de ambiente em 20/10/2026: exemplos genéricos usam Node.js 22. O laboratório StreamFlow usa <code>node:22-bookworm-slim</code> (Debian); comandos <code>apk</code> dos exemplos Alpine não se aplicam aos seus contêineres. Consulte <code>SETUP.md</code> e <code>DEBUG.md</code> para executar a atividade.</p>
+</blockquote>
+<h1 id="guia-completo-arquitetura-de-microsserviços-e-containerização-com-docker">Guia Completo: Arquitetura de Microsserviços e Containerização com Docker</h1>
+<p><strong>Disciplina:</strong> Serviços Web (PF_CC.44)<br><strong>Curso:</strong> Ciência da Computação — IFSul, Campus Passo Fundo<br><strong>Professor:</strong> Élder F. F. Bernardi<br><strong>Instituição:</strong> IFSul — Campus Passo Fundo<br><strong>Nível:</strong> Graduação — Ciência da Computação<br><strong>Unidade:</strong> 2 — Tecnologias de Serviços Web<br><strong>Contexto:</strong> Material de apoio às Aulas 8 e 9 (Microsserviços + Docker) e ao Trabalho Final</p>
+<hr>
+<h2 id="sumário">Sumário</h2>
+<ol>
+<li><a href="#1-introdu%C3%A7%C3%A3o">Introdução</a></li>
+<li><a href="#2-de-monol%C3%ADtico-a-microsservi%C3%A7os--a-evolu%C3%A7%C3%A3o-arquitetural">De Monolítico a Microsserviços — A Evolução Arquitetural</a></li>
+<li><a href="#3-princ%C3%ADpios-fundamentais-de-microsservi%C3%A7os">Princípios Fundamentais de Microsserviços</a></li>
+<li><a href="#4-padr%C3%B5es-de-decomposi%C3%A7%C3%A3o--onde-cortar">Padrões de Decomposição — Onde Cortar?</a></li>
+<li><a href="#5-comunica%C3%A7%C3%A3o-entre-servi%C3%A7os">Comunicação entre Serviços</a></li>
+<li><a href="#6-api-gateway--a-porta-de-entrada-unificada">API Gateway — A Porta de Entrada Unificada</a></li>
+<li><a href="#7-autentica%C3%A7%C3%A3o-em-microsservi%C3%A7os--a-ponte-com-jwt">Autenticação em Microsserviços — A Ponte com JWT</a></li>
+<li><a href="#8-docker--fundamentos-de-containeriza%C3%A7%C3%A3o">Docker — Fundamentos de Containerização</a></li>
+<li><a href="#9-dockerfile--construindo-imagens">Dockerfile — Construindo Imagens</a></li>
+<li><a href="#10-docker-compose--orquestrando-m%C3%BAltiplos-servi%C3%A7os">Docker Compose — Orquestrando Múltiplos Serviços</a></li>
+<li><a href="#11-implementa%C3%A7%C3%A3o-pr%C3%A1tica--decompondo-uma-api-monol%C3%ADtica-express">Implementação Prática — Decompondo uma API Monolítica (Express)</a></li>
+<li><a href="#12-implementa%C3%A7%C3%A3o-com-fastify--microsservi%C3%A7os-com-persist%C3%AAncia">Implementação com Fastify — Microsserviços com Persistência</a></li>
+<li><a href="#13-observabilidade-e-monitoramento">Observabilidade e Monitoramento</a></li>
+<li><a href="#14-padr%C3%B5es-de-resili%C3%AAncia">Padrões de Resiliência</a></li>
+<li><a href="#15-erros-comuns-e-antipadr%C3%B5es">Erros Comuns e Antipadrões</a></li>
+<li><a href="#16-refer%C3%AAncias">Referências</a></li>
+</ol>
+<hr>
+<h2 id="1-introdução">1. Introdução</h2>
+<p>A arquitetura de <strong>microsserviços</strong> representa uma das transformações mais significativas na forma como aplicações são projetadas, desenvolvidas e operadas desde a adoção de sistemas de nuvem. Em vez de construir um sistema como um bloco único e monolítico, a abordagem de microsserviços propõe a decomposição da aplicação em <strong>serviços pequenos, independentes e especializados</strong>, cada um responsável por uma capacidade de negócio específica.</p>
+<p>Essa mudança não é apenas técnica — ela reflete a necessidade de organizações modernas de entregar software com <strong>velocidade, escalabilidade e resiliência</strong> em ambientes de nuvem e operações distribuídas.</p>
+<h3 id="onde-este-conteúdo-se-encaixa-na-disciplina">Onde este conteúdo se encaixa na disciplina</h3>
+<p>Na disciplina de Serviços Web, você já estudou os fundamentos da arquitetura REST e implementou APIs com Node.js e Express.js. Também aprendeu a proteger essas APIs com autenticação JWT. A arquitetura de microsserviços representa o <strong>próximo passo natural</strong> nessa jornada: quando uma API monolítica cresce em complexidade e em requistos de escalabilidade, quais estratégias arquiteturais permitem que ela continue evoluindo de forma sustentável e quais os principais desafios para que esta evolução permaneça estável?</p>
+<p>Um dos maiores risco que temos ao adotar uma arquitetura de microsserviços, é que ela pode se tornar tão complexa que se torna mais difícil de gerenciar e manter do que um monolito. Este &quot;sweet spot&quot; entre realmente escalar de um monolito para microsserviços, sem degradar custos, manutenção e escalabilidade é o grande desafio que teremos que aprender a dominar. O objetivo deste estudo e trabalho seguinte é escavarmos os termos, ambientes, conceitos e arquiteturas que orbitam microsserviços e nos tornarmos aptos a tomar decisões conscientes e inteligentes para realizar a leitura de cenários e fazer as escolhas mais racioanais.</p>
+<h3 id="objetivos-deste-guia">Objetivos deste guia</h3>
+<p>Ao final da leitura, você será capaz de:</p>
+<ul>
+<li>Explicar as diferenças entre arquitetura monolítica e microsserviços</li>
+<li>Identificar quando a adoção de microsserviços é (e quando não é) apropriada</li>
+<li>Aplicar padrões de decomposição para dividir uma aplicação em serviços independentes</li>
+<li>Compreender os modelos de comunicação entre serviços (síncrono e assíncrono)</li>
+<li>Construir imagens Docker e orquestrar múltiplos containers com Docker Compose</li>
+<li>Decompor uma API REST monolítica (Node.js + Express) em microsserviços containerizados</li>
+<li>Ter um vocabulário mais rico para poder analisar sistemas existentes e diagnosticar problemas e soluções.</li>
+</ul>
+<h2 id="2-de-monolítico-a-microsserviços--a-evolução-arquitetural">2. De Monolítico a Microsserviços — A Evolução Arquitetural</h2>
+<h3 id="21-o-que-é-uma-aplicação-monolítica">2.1 O que é uma aplicação monolítica?</h3>
+<p>Uma aplicação monolítica é aquela em que <strong>todo o código</strong> — desde a interface de autenticação até as regras de negócio e o acesso ao banco de dados — reside em uma <strong>única base de código</strong> e é implantado como <strong>uma única unidade</strong>.</p>
+<p>A API que você construiu no Trabalho I é um exemplo clássico de monolito: rotas de autenticação, rotas de tarefas, middlewares, serviços e DAOs — tudo vive no mesmo projeto, compartilhando o mesmo processo Node.js e o mesmo banco de dados.</p>
+<pre><code class="hljs language-plaintext">┌─────────────────────────────────────────────────┐
+│              APLICAÇÃO MONOLÍTICA                │
+│                                                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
+│  │  Auth    │ │  Tarefas │ │    Usuários      │ │
+│  │  Routes  │ │  Routes  │ │    Routes        │ │
+│  └────┬─────┘ └────┬─────┘ └───────┬──────────┘ │
+│       │             │               │            │
+│  ┌────┴─────────────┴───────────────┴──────────┐ │
+│  │          Controllers + Services             │ │
+│  └─────────────────────┬───────────────────────┘ │
+│                        │                         │
+│  ┌─────────────────────┴───────────────────────┐ │
+│  │              Banco de Dados                 │ │
+│  └─────────────────────────────────────────────┘ │
+│                                                  │
+│          Um único processo · Uma porta           │
+└─────────────────────────────────────────────────┘</code></pre><p><strong>Vantagens do monolito</strong> (sim, elas existem e são importantes):</p>
+<table>
+<thead>
+<tr>
+<th>Vantagem</th>
+<th>Detalhamento</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Simplicidade inicial</td>
+<td>Um único projeto, uma implantação, fácil de entender</td>
+</tr>
+<tr>
+<td>Desenvolvimento rápido</td>
+<td>Sem complexidade de rede entre componentes</td>
+</tr>
+<tr>
+<td>Debugging direto</td>
+<td>Stack trace completa em um único processo</td>
+</tr>
+<tr>
+<td>Transações ACID simples</td>
+<td>Tudo no mesmo banco, sem coordenação distribuída</td>
+</tr>
+<tr>
+<td>Implantação trivial</td>
+<td>Um único artefato para fazer deploy</td>
+</tr>
+<tr>
+<td>Logging natural</td>
+<td>Sistemas de logging comuns costumas ser suficientes para debugar</td>
+</tr>
+</tbody></table>
+<h3 id="22-quando-o-monolito-se-torna-um-problema">2.2 Quando o monolito se torna um problema</h3>
+<p>À medida que a aplicação cresce, surgem dificuldades concretas:</p>
+<p><strong>Acoplamento involuntário:</strong> Uma alteração no módulo de pagamentos pode quebrar o módulo de relatórios, porque ambos compartilham modelos de dados e dependências internas. Essa interdependência silenciosa torna cada mudança um risco.</p>
+<p><strong>Escalabilidade limitada:</strong> Se o módulo de busca recebe 100x mais requisições que o módulo de administração, não é possível escalar apenas a busca — todo o monolito precisa ser replicado, desperdiçando recursos computacionais. Temos um problema de escalabilidade vertical, que acaba custando mais, pois também obriga a escala vertical.</p>
+<p><strong>Deploy com risco total:</strong> Qualquer mudança, por menor que seja, exige reimplantar a aplicação inteira. Um bug introduzido em um módulo periférico pode derrubar o sistema completo.</p>
+<p><strong>Ciclos de entrega longos:</strong> Em equipes maiores, múltiplos desenvolvedores editam a mesma base de código. Conflitos de merge, testes que quebram em cascata e coordenação excessiva atrasam entregas.</p>
+<h3 id="23-o-que-são-microsserviços">2.3 O que são microsserviços?</h3>
+<p>A arquitetura de microsserviços é um estilo arquitetural que estrutura uma aplicação como uma <strong>coleção de serviços independentes</strong>, onde cada serviço:</p>
+<ul>
+<li>Implementa uma <strong>capacidade de negócio</strong> específica e bem delimitada</li>
+<li>É <strong>desenvolvido, implantado e escalado independentemente</strong></li>
+<li>Possui seu <strong>próprio armazenamento de dados</strong> (banco isolado)</li>
+<li>Comunica-se com outros serviços por meio de <strong>interfaces bem definidas</strong> (APIs REST, mensagens, eventos)</li>
+<li>Pode ser escrito em <strong>linguagens e tecnologias diferentes</strong> (poliglotismo)</li>
+</ul>
+<pre><code class="hljs language-plaintext">┌────────────┐     ┌────────────┐     ┌────────────┐
+│  Serviço   │     │  Serviço   │     │  Serviço   │
+│    Auth    │     │  Tarefas   │     │  Usuários  │
+│            │     │            │     │            │
+│ ┌────────┐ │     │ ┌────────┐ │     │ ┌────────┐ │
+│ │ BD own │ │     │ │ BD own │ │     │ │ BD own │ │
+│ └────────┘ │     │ └────────┘ │     │ └────────┘ │
+│  :3001     │     │  :3002     │     │  :3003     │
+└─────┬──────┘     └─────┬──────┘     └──────┬─────┘
+      │                  │                    │
+      └──────────────────┼────────────────────┘
+                         │
+                  ┌──────┴──────┐
+                  │ API Gateway │
+                  │   :8080     │
+                  └──────┬──────┘
+                         │
+                    ┌────┴────┐
+                    │ Cliente │
+                    └─────────┘</code></pre><h3 id="24-comparação-direta">2.4 Comparação direta</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Monolítico</th>
+<th>Microsserviços</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Estrutura</strong></td>
+<td>Uma base de código unificada</td>
+<td>Múltiplos serviços independentes</td>
+</tr>
+<tr>
+<td><strong>Implantação</strong></td>
+<td>Tudo junto, uma unidade</td>
+<td>Cada serviço separadamente</td>
+</tr>
+<tr>
+<td><strong>Escalabilidade</strong></td>
+<td>Vertical (máquina maior)</td>
+<td>Horizontal (mais instâncias por serviço)</td>
+</tr>
+<tr>
+<td><strong>Banco de dados</strong></td>
+<td>Compartilhado</td>
+<td>Um por serviço (isolamento)</td>
+</tr>
+<tr>
+<td><strong>Tecnologia</strong></td>
+<td>Uma stack para tudo</td>
+<td>Cada serviço pode usar a sua</td>
+</tr>
+<tr>
+<td><strong>Tolerância a falhas</strong></td>
+<td>Falha derruba tudo</td>
+<td>Falha isolada em um serviço</td>
+</tr>
+<tr>
+<td><strong>Complexidade operacional</strong></td>
+<td>Baixa</td>
+<td>Alta (rede, observabilidade, deploy)</td>
+</tr>
+<tr>
+<td><strong>Indicado para</strong></td>
+<td>MVPs, equipes pequenas, domínios simples</td>
+<td>Sistemas grandes, equipes múltiplas, escala variável</td>
+</tr>
+</tbody></table>
+<h3 id="25-quando-não-adotar-microsserviços">2.5 Quando NÃO adotar microsserviços</h3>
+<p>É fundamental ter consciência de que microsserviços <strong>não são a resposta para todos os problemas</strong>. A adoção prematura dessa arquitetura é um dos erros mais frequentes na indústria.</p>
+<p>Microsserviços <strong>provavelmente não são a melhor escolha</strong> quando:</p>
+<ul>
+<li>A equipe é pequena (menos de 5–8 desenvolvedores)</li>
+<li>O domínio de negócio ainda não é bem compreendido</li>
+<li>O sistema tem menos de 10 módulos com fronteiras claras</li>
+<li>A organização não tem maturidade em DevOps, CI/CD e monitoramento</li>
+<li>O projeto está em fase de MVP (Produto Mínimo Viável)</li>
+</ul>
+<blockquote>
+<p><strong>Martin Fowler</strong>, uma das principais referências em arquitetura de software, cunhou o termo <strong>&quot;Monolith First&quot;</strong> (monolito primeiro): comece com um monolito bem estruturado e só decomponha em microsserviços quando a complexidade justificar o custo operacional adicional.</p>
+</blockquote>
+<hr>
+<h2 id="3-princípios-fundamentais-de-microsserviços">3. Princípios Fundamentais de Microsserviços</h2>
+<p>A arquitetura de microsserviços não é definida apenas pela separação física de código em repositórios distintos. Ela é sustentada por um conjunto de <strong>princípios de design</strong> que, quando aplicados de forma coerente, resultam em sistemas genuinamente modulares e resilientes.</p>
+<h3 id="31-responsabilidade-única-de-negócio">3.1 Responsabilidade Única de Negócio</h3>
+<p>Cada microsserviço deve encapsular uma <strong>capacidade de negócio</strong> completa e coesa. Não se trata de dividir por camada técnica (um serviço para controllers, outro para DAOs), mas sim por <strong>domínio funcional</strong>.</p>
+<pre><code class="hljs language-plaintext">  ✗ Divisão ERRADA (por camada técnica)    ✓ Divisão CORRETA (por domínio)
+
+  ┌──────────────┐                         ┌──────────────┐ ┌──────────────┐
+  │  Serviço de  │                         │  Serviço de  │ │  Serviço de  │
+  │  Controllers │                         │  Pedidos     │ │  Pagamentos  │
+  ├──────────────┤                         │              │ │              │
+  │  Serviço de  │                         │ Controller   │ │ Controller   │
+  │  Services    │                         │ Service      │ │ Service      │
+  ├──────────────┤                         │ DAO + BD     │ │ DAO + BD     │
+  │  Serviço de  │                         └──────────────┘ └──────────────┘
+  │  DAOs        │
+  └──────────────┘</code></pre><h3 id="32-autonomia-e-independência-de-deploy">3.2 Autonomia e Independência de Deploy</h3>
+<p>Um microsserviço deve poder ser <strong>compilado, testado e implantado</strong> sem depender de outros serviços. Isso significa que:</p>
+<ul>
+<li>Cada serviço tem seu próprio <strong>repositório</strong> (ou diretório independente em um monorepo)</li>
+<li>Cada serviço tem seu próprio <strong>pipeline de CI/CD</strong></li>
+<li>A alteração em um serviço <strong>não exige reimplantação</strong> de outros</li>
+</ul>
+<h3 id="33-banco-de-dados-por-serviço-database-per-service">3.3 Banco de Dados por Serviço (Database per Service)</h3>
+<p>Este é um dos princípios mais importantes — e mais difíceis de aceitar para quem vem do mundo monolítico. Cada microsserviço <strong>deve possuir e gerenciar seu próprio armazenamento de dados</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Princípio</th>
+<th>Implicação</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cada serviço tem seu BD</td>
+<td>Sem joins entre serviços — dados são obtidos via API</td>
+</tr>
+<tr>
+<td>Tecnologia livre</td>
+<td><code>user-service</code> pode usar PostgreSQL, <code>logs-service</code> pode usar MongoDB</td>
+</tr>
+<tr>
+<td>Encapsulamento</td>
+<td>Nenhum serviço acessa diretamente o banco de outro</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs language-plaintext">  ✗ ERRADO: Banco compartilhado           ✓ CORRETO: Banco por serviço
+
+  ┌───────┐  ┌───────┐  ┌───────┐        ┌───────┐  ┌───────┐  ┌───────┐
+  │Svc A  │  │Svc B  │  │Svc C  │        │Svc A  │  │Svc B  │  │Svc C  │
+  └───┬───┘  └───┬───┘  └───┬───┘        └───┬───┘  └───┬───┘  └───┬───┘
+      │          │          │                 │          │          │
+      └──────────┼──────────┘            ┌────┴───┐ ┌───┴────┐ ┌──┴─────┐
+           ┌─────┴─────┐                 │ BD-A   │ │ BD-B   │ │ BD-C   │
+           │    BD     │                 │(Postgres)│(MongoDB)│(SQLite) │
+           │(Compartilhado)│             └────────┘ └────────┘ └────────┘
+           └───────────┘</code></pre><p><strong>Consequência direta:</strong> como não há joins entre bancos distintos, quando o <code>order-service</code> precisa do nome do cliente, ele faz uma chamada HTTP ao <code>user-service</code>. Isso gera latência de rede, mas garante o desacoplamento. Existem estratégias para mitigar esse custo, como cache local e replicação de dados via eventos — temas que abordaremos nas seções de comunicação e resiliência.</p>
+<h3 id="34-contratos-de-interface-bem-definidos">3.4 Contratos de Interface Bem Definidos</h3>
+<p>Serviços se comunicam exclusivamente por meio de <strong>interfaces públicas</strong> — tipicamente APIs REST, gRPC ou mensagens assíncronas. A implementação interna de cada serviço é uma caixa-preta para os demais.</p>
+<p>Isso significa que o <code>order-service</code> não deve saber (e não pode depender de) como o <code>user-service</code> armazena dados internamente. Ele conhece apenas o contrato: &quot;se eu fizer <code>GET /users/42</code>, recebo um JSON com <code>id</code>, <code>name</code> e <code>email</code>.&quot;</p>
+<h3 id="35-tolerância-a-falhas-design-for-failure">3.5 Tolerância a Falhas (Design for Failure)</h3>
+<p>Em um sistema distribuído, falhas <strong>não são exceção — são a regra</strong>. A rede falha, serviços ficam indisponíveis, latências aumentam. Um microsserviço bem projetado deve:</p>
+<ul>
+<li><strong>Não depender</strong> da disponibilidade de outro serviço para funcionar minimamente</li>
+<li>Implementar <strong>timeouts</strong> em todas as chamadas de rede</li>
+<li>Usar <strong>circuit breakers</strong> para evitar cascatas de falha (detalhado na Seção 13)</li>
+<li>Ter <strong>fallbacks</strong> para situações de degradação</li>
+</ul>
+<h3 id="36-descentralização">3.6 Descentralização</h3>
+<p>O modelo de microsserviços favorece a <strong>descentralização</strong> em múltiplas dimensões:</p>
+<ul>
+<li><strong>Governança descentralizada:</strong> cada equipe escolhe a tecnologia mais adequada para seu serviço</li>
+<li><strong>Dados descentralizados:</strong> cada serviço gerencia seus próprios dados (princípio 3.3)</li>
+<li><strong>Decisões descentralizadas:</strong> equipes têm autonomia para projetar e implantar seus serviços</li>
+</ul>
+<h3 id="resumo-dos-princípios">Resumo dos princípios</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Princípio</th>
+<th>Pergunta de Validação</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Responsabilidade única de negócio</td>
+<td>&quot;Este serviço faz uma coisa e faz bem?&quot;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Autonomia de deploy</td>
+<td>&quot;Posso implantar este serviço sem tocar em outros?&quot;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Banco de dados isolado</td>
+<td>&quot;Nenhum outro serviço acessa meu banco diretamente?&quot;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Contratos de interface</td>
+<td>&quot;Minha API pública está documentada e versionada?&quot;</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Tolerância a falhas</td>
+<td>&quot;O que acontece se um serviço vizinho estiver fora do ar?&quot;</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Descentralização</td>
+<td>&quot;Cada equipe pode evoluir seu serviço de forma autônoma?&quot;</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-padrões-de-decomposição--onde-cortar">4. Padrões de Decomposição — Onde Cortar?</h2>
+<p>A pergunta mais difícil ao adotar microsserviços não é &quot;como implementar?&quot;, mas sim <strong>&quot;onde traçar as fronteiras entre os serviços?&quot;</strong>. Uma decomposição ruim resulta no pior dos mundos: a complexidade de um sistema distribuído combinada com o acoplamento de um monolito. A literatura de engenharia de software consolidou dois padrões principais para guiar esse processo: a <strong>Decomposição por Domínio</strong>, derivada do <em>Domain-Driven Design</em> de <strong>Eric Evans</strong> (2003), e o <strong>Strangler Fig Pattern</strong>, proposto por <strong>Martin Fowler</strong> (2004) para migrações incrementais de monolitos legados.</p>
+<h3 id="41-decomposição-por-domínio-de-negócio-domain-driven-design">4.1 Decomposição por Domínio de Negócio (Domain-Driven Design)</h3>
+<p>O <strong>Domain-Driven Design (DDD)</strong>, proposto por Eric Evans, oferece o vocabulário mais preciso para identificar fronteiras de serviço. O conceito central é o de <strong>Bounded Context</strong> (Contexto Delimitado): uma fronteira linguística e funcional dentro da qual um modelo de domínio específico tem significado consistente.</p>
+<p><strong>Exemplo concreto — Sistema de e-commerce:</strong></p>
+<pre><code class="hljs language-plaintext">┌─────────────────────────────────────────────────────────┐
+│                    E-COMMERCE                           │
+│                                                         │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐ │
+│  │  Catálogo   │  │   Pedidos   │  │   Pagamentos    │ │
+│  │             │  │             │  │                 │ │
+│  │ - Produto   │  │ - Pedido    │  │ - Transação     │ │
+│  │ - Categoria │  │ - ItemPedido│  │ - Fatura        │ │
+│  │ - Estoque   │  │ - Status    │  │ - Reembolso     │ │
+│  │             │  │             │  │                 │ │
+│  │ Bounded     │  │ Bounded     │  │ Bounded         │ │
+│  │ Context 1   │  │ Context 2   │  │ Context 3       │ │
+│  └─────────────┘  └─────────────┘  └─────────────────┘ │
+│                                                         │
+│  ┌─────────────┐  ┌─────────────┐                       │
+│  │   Entregas  │  │  Clientes   │                       │
+│  │             │  │             │                       │
+│  │ - Remessa   │  │ - Perfil    │                       │
+│  │ - Rastreio  │  │ - Endereço  │                       │
+│  │ - Frete     │  │ - Preferências                      │
+│  │             │  │             │                       │
+│  │ Bounded     │  │ Bounded     │                       │
+│  │ Context 4   │  │ Context 5   │                       │
+│  └─────────────┘  └─────────────┘                       │
+└─────────────────────────────────────────────────────────┘</code></pre><p>Observe que &quot;Produto&quot; aparece no contexto de Catálogo e pode ser referenciado em Pedidos, mas cada contexto tem sua <strong>própria representação</strong>. No Catálogo, um produto tem descrição detalhada, fotos e SEO. No Pedido, o &quot;produto&quot; é apenas um ID, um nome e um preço unitário — uma versão simplificada.</p>
+<h3 id="42-o-padrão-strangler-fig-figueira-estranguladora">4.2 O Padrão Strangler Fig (Figueira Estranguladora)</h3>
+<p>Quando a decomposição parte de um monolito existente (o cenário mais comum na vida real e no contexto da Aula 9), o padrão <strong>Strangler Fig</strong> oferece uma estratégia de migração <strong>incremental</strong>, sem reescrita total. O nome foi cunhado por <strong>Martin Fowler</strong> em seu <a href="https://martinfowler.com/bliki/StranglerFigApplication.html">artigo de 2004</a>, em referência às figueiras estranguladores australianas — trepadeiras que crescem ao redor de uma árvore hospedeira até substituí-la por completo. A metáfora descreve exatamente o processo: o novo sistema cresce em volta do monolito, assumindo funcionalidades uma a uma, até que o monolito original possa ser removido.</p>
+<p><strong>Fases da migração:</strong></p>
+<pre><code class="hljs language-plaintext">Fase 1: Monolito intacto         Fase 2: Extração parcial
+┌───────────────────┐            ┌───────────────────┐
+│    Monolito       │            │    Monolito       │
+│                   │            │  (sem Auth)       │
+│ Auth + Tasks +    │            │  Tasks + Users    │
+│ Users             │            └────────┬──────────┘
+└────────┬──────────┘                     │
+         │                          ┌─────┴─────┐
+    ┌────┴────┐                     │  Gateway   │
+    │ Cliente │                     └─────┬─────┘
+    └─────────┘                           │
+                                    ┌─────┴─────┐
+                                    │ Auth Svc   │  ← Novo
+                                    │ (isolado)  │
+                                    └────────────┘
+
+Fase 3: Extração completa
+┌────────────┐  ┌────────────┐  ┌────────────┐
+│ Auth Svc   │  │ Tasks Svc  │  │ Users Svc  │
+└─────┬──────┘  └─────┬──────┘  └─────┬──────┘
+      └───────────────┼───────────────┘
+                ┌─────┴─────┐
+                │  Gateway   │
+                └─────┬─────┘
+                ┌─────┴─────┐
+                │  Cliente   │
+                └────────────┘</code></pre><p><strong>Passos práticos do Strangler Fig:</strong></p>
+<ol>
+<li><strong>Identificar</strong> o módulo com fronteira mais clara (baixo acoplamento com o resto)</li>
+<li><strong>Extrair</strong> o código para um serviço separado com sua própria API</li>
+<li><strong>Redirecionar</strong> o tráfego do monolito para o novo serviço (via API Gateway ou proxy reverso)</li>
+<li><strong>Remover</strong> o código antigo do monolito</li>
+<li><strong>Repetir</strong> para o próximo módulo</li>
+</ol>
+<h3 id="43-critérios-práticos-para-traçar-fronteiras">4.3 Critérios Práticos para Traçar Fronteiras</h3>
+<table>
+<thead>
+<tr>
+<th>Critério</th>
+<th>Boa fronteira</th>
+<th>Fronteira problemática</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Coesão funcional</strong></td>
+<td>Módulo faz uma coisa completa</td>
+<td>Módulo precisa chamar 5 outros para completar uma operação</td>
+</tr>
+<tr>
+<td><strong>Frequência de mudança</strong></td>
+<td>Módulos que mudam juntos ficam juntos</td>
+<td>Módulos que mudam independentemente estão separados</td>
+</tr>
+<tr>
+<td><strong>Escalabilidade</strong></td>
+<td>Módulos com demandas de carga distintas</td>
+<td>Módulos com carga similar não precisam ser separados</td>
+</tr>
+<tr>
+<td><strong>Dados</strong></td>
+<td>Cada serviço tem suas tabelas exclusivas</td>
+<td>Duas tabelas sempre usadas em JOIN pertencem ao mesmo serviço</td>
+</tr>
+<tr>
+<td><strong>Equipe</strong></td>
+<td>Um serviço cabe em uma equipe (6–8 pessoas)</td>
+<td>Se precisa de coordenação entre equipes, está grande demais</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Para a Aula 9:</strong> Na atividade prática de decomposição, a sugestão é começar extraindo o módulo de <strong>autenticação</strong> (<code>auth-service</code>) do monolito. Esse é tipicamente o módulo com fronteira mais nítida: recebe credenciais, emite tokens, e não depende da lógica de negócio dos demais módulos.</p>
+</blockquote>
+<hr>
+<h2 id="5-comunicação-entre-serviços">5. Comunicação entre Serviços</h2>
+<p>Em um monolito, módulos se comunicam por chamadas de função em memória — rápidas, confiáveis e transacionais. Em microsserviços, essa comunicação atravessa a <strong>rede</strong>, o que introduz latência, possibilidade de falha e complexidade de serialização. A escolha do padrão de comunicação é uma das decisões arquiteturais mais impactantes.</p>
+<h3 id="51-comunicação-síncrona-requestresponse">5.1 Comunicação Síncrona (Request/Response)</h3>
+<p>Na comunicação síncrona, o serviço chamador envia uma requisição e <strong>aguarda a resposta</strong> antes de continuar o processamento. É o modelo que você já conhece das APIs REST.</p>
+<pre><code class="hljs language-plaintext">┌──────────────┐    HTTP GET /users/42    ┌──────────────┐
+│ order-service │ ──────────────────────→ │ user-service  │
+│               │ ←────────────────────── │               │
+│  (aguarda)    │    200 { name: &quot;Ana&quot; }  │               │
+└──────────────┘                          └──────────────┘</code></pre><p><strong>Protocolos comuns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocolo</th>
+<th>Formato</th>
+<th>Desempenho</th>
+<th>Quando usar</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>REST/HTTP</strong></td>
+<td>JSON (texto)</td>
+<td>Bom</td>
+<td>Comunicação simples, equipes diversas, APIs públicas</td>
+</tr>
+<tr>
+<td><strong>gRPC</strong></td>
+<td>Protocol Buffers (binário)</td>
+<td>Alto</td>
+<td>Comunicação interna de alta frequência, baixa latência</td>
+</tr>
+<tr>
+<td><strong>GraphQL</strong></td>
+<td>JSON (texto)</td>
+<td>Variável</td>
+<td>Quando o cliente precisa controlar exatamente quais dados recebe</td>
+</tr>
+</tbody></table>
+<p><strong>Riscos da comunicação síncrona em cadeia:</strong></p>
+<pre><code class="hljs language-plaintext">  Cliente → Gateway → Svc A → Svc B → Svc C → Svc D
+                                                 ↑
+                                          Se Svc D cair,
+                                       TUDO para de funcionar
+                                     (cascata de falhas)</code></pre><p>Quando serviços dependem sincronamente uns dos outros em cadeia, a <strong>disponibilidade do sistema</strong> é o produto das disponibilidades individuais. Se cada serviço tem 99,5% de uptime, uma cadeia de 4 serviços resulta em: <code>0,995⁴ = 98,01%</code> — uma degradação significativa.</p>
+<h3 id="52-comunicação-assíncrona-event-driven">5.2 Comunicação Assíncrona (Event-Driven)</h3>
+<p>Na comunicação assíncrona, o serviço emissor publica uma mensagem ou evento e <strong>continua processando imediatamente</strong>, sem aguardar resposta. Um componente intermediário (message broker) cuida da entrega.</p>
+<pre><code class="hljs language-plaintext">┌──────────────┐   Evento: &quot;PedidoCriado&quot;   ┌─────────────┐
+│ order-service │ ────────────────────────→  │   Broker    │
+│ (continua)   │                             │ (RabbitMQ / │
+└──────────────┘                             │  Redis)     │
+                                             └──────┬──────┘
+                                                    │
+                                    ┌───────────────┼───────────────┐
+                                    ↓               ↓               ↓
+                             ┌────────────┐  ┌────────────┐  ┌────────────┐
+                             │ payment-   │  │ stock-     │  │ email-     │
+                             │ service    │  │ service    │  │ service    │
+                             └────────────┘  └────────────┘  └────────────┘</code></pre><p><strong>Modelos de mensageria:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Comportamento</th>
+<th>Tecnologias</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Point-to-Point (Fila)</strong></td>
+<td>Uma mensagem é consumida por <strong>um</strong> consumidor</td>
+<td>RabbitMQ, AWS SQS</td>
+</tr>
+<tr>
+<td><strong>Publish-Subscribe</strong></td>
+<td>Uma mensagem é distribuída para <strong>todos</strong> os inscritos</td>
+<td>Redis Pub/Sub, Apache Kafka</td>
+</tr>
+<tr>
+<td><strong>Event Streaming</strong></td>
+<td>Eventos são persistidos e podem ser <strong>relidos</strong></td>
+<td>Apache Kafka, AWS Kinesis</td>
+</tr>
+</tbody></table>
+<h3 id="53-consistência-eventual-vs-imediata">5.3 Consistência Eventual vs. Imediata</h3>
+<p>A escolha entre comunicação síncrona e assíncrona impacta diretamente o modelo de consistência dos dados:</p>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Consistência Imediata (síncrona)</th>
+<th>Consistência Eventual (assíncrona)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Garantia</strong></td>
+<td>Dado atualizado em tempo real</td>
+<td>Dado pode levar milissegundos a segundos para propagar</td>
+</tr>
+<tr>
+<td><strong>Complexidade</strong></td>
+<td>Menor, mas com acoplamento forte</td>
+<td>Maior, mas com desacoplamento</td>
+</tr>
+<tr>
+<td><strong>Disponibilidade</strong></td>
+<td>Menor (depende de todos os serviços)</td>
+<td>Maior (serviços funcionam independente)</td>
+</tr>
+<tr>
+<td><strong>Exemplo</strong></td>
+<td>Consultar saldo antes de aprovar compra</td>
+<td>Enviar email de confirmação após pedido</td>
+</tr>
+</tbody></table>
+<h3 id="54-na-prática-abordagem-híbrida">5.4 Na Prática: Abordagem Híbrida</h3>
+<p>A maioria dos sistemas de produção combina ambos os padrões:</p>
+<ul>
+<li><strong>Síncrono</strong> para operações que exigem resposta imediata ao usuário (consultas, validações)</li>
+<li><strong>Assíncrono</strong> para efeitos colaterais e processamentos em segundo plano (notificações, relatórios, sincronização)</li>
+</ul>
+<pre><code class="hljs language-plaintext">Exemplo: Fluxo de criação de pedido
+
+  1. Cliente → POST /orders (síncrono, resposta imediata: &quot;pedido criado&quot;)
+  2. order-service → Publica evento &quot;PedidoCriado&quot; (assíncrono)
+  3. payment-service → Consome evento, processa pagamento
+  4. stock-service → Consome evento, reserva estoque
+  5. notification-service → Consome evento, envia email</code></pre><blockquote>
+<p><strong>Para o escopo desta disciplina:</strong> A implementação prática (Seção 11) utilizará comunicação <strong>síncrona via REST</strong> entre os microsserviços, por ser a abordagem que vocês já dominam. A comunicação assíncrona é apresentada aqui para completude conceitual e preparação para cenários reais de produção.</p>
+</blockquote>
+<hr>
+<h2 id="6-api-gateway--a-porta-de-entrada-unificada">6. API Gateway — A Porta de Entrada Unificada</h2>
+<h3 id="61-o-problema-múltiplos-endpoints">6.1 O Problema: Múltiplos Endpoints</h3>
+<p>Sem um ponto de entrada centralizado, o cliente precisaria conhecer o endereço de cada microsserviço individualmente. Em um sistema com 10 serviços, o frontend teria que gerenciar 10 URLs diferentes, lidar com autenticação em cada um e enfrentar problemas de CORS.</p>
+<pre><code class="hljs language-plaintext">  ✗ SEM Gateway (cliente lida com tudo)
+
+  ┌─────────┐
+  │ Cliente │──→ http://auth:3001/login
+  │         │──→ http://tasks:3002/tasks
+  │         │──→ http://users:3003/users
+  │         │──→ http://reports:3004/reports
+  └─────────┘
+  Problema: acoplamento direto, CORS, sem ponto central de segurança</code></pre><h3 id="62-a-solução-api-gateway">6.2 A Solução: API Gateway</h3>
+<p>O API Gateway é um componente que atua como <strong>ponto de entrada único</strong> para todas as requisições externas. Ele recebe as requisições do cliente e as encaminha ao serviço interno adequado.</p>
+<pre><code class="hljs language-plaintext">  ✓ COM Gateway (ponto único de entrada)
+
+  ┌─────────┐     ┌───────────────┐     ┌──────────┐
+  │ Cliente │────→│  API Gateway  │────→│ auth-svc │
+  │         │     │   :8080       │────→│ task-svc │
+  └─────────┘     │               │────→│ user-svc │
+                  └───────────────┘     └──────────┘
+
+  Cliente conhece apenas: http://gateway:8080</code></pre><h3 id="63-responsabilidades-do-api-gateway">6.3 Responsabilidades do API Gateway</h3>
+<table>
+<thead>
+<tr>
+<th>Responsabilidade</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Roteamento</strong></td>
+<td>Direciona <code>/api/tasks/*</code> para <code>task-service</code>, <code>/auth/*</code> para <code>auth-service</code></td>
+</tr>
+<tr>
+<td><strong>Autenticação centralizada</strong></td>
+<td>Valida JWT uma vez, no gateway, antes de encaminhar</td>
+</tr>
+<tr>
+<td><strong>Rate Limiting</strong></td>
+<td>Limita número de requisições por cliente/IP</td>
+</tr>
+<tr>
+<td><strong>CORS</strong></td>
+<td>Configura headers de Cross-Origin em um único ponto</td>
+</tr>
+<tr>
+<td><strong>Agregação</strong></td>
+<td>Combina respostas de múltiplos serviços em uma única resposta</td>
+</tr>
+<tr>
+<td><strong>Load Balancing</strong></td>
+<td>Distribui carga entre múltiplas instâncias de um serviço</td>
+</tr>
+</tbody></table>
+<h3 id="64-implementação-simplificada-com-express">6.4 Implementação Simplificada com Express</h3>
+<p>Para fins didáticos, um API Gateway pode ser implementado como um serviço Express que utiliza <code>http-proxy-middleware</code> para redirecionar requisições:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// gateway/index.js</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+<span class="hljs-keyword">const</span> { createProxyMiddleware } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http-proxy-middleware&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+
+<span class="hljs-comment">// Roteamento para serviços internos</span>
+app.<span class="hljs-title function_">use</span>(
+  <span class="hljs-string">&quot;/auth&quot;</span>,
+  <span class="hljs-title function_">createProxyMiddleware</span>({
+    <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://auth-service:3001&quot;</span>,
+    <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,
+  }),
+);
+
+app.<span class="hljs-title function_">use</span>(
+  <span class="hljs-string">&quot;/api/tasks&quot;</span>,
+  <span class="hljs-title function_">createProxyMiddleware</span>({
+    <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://task-service:3002&quot;</span>,
+    <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">pathRewrite</span>: { <span class="hljs-string">&quot;^/api/tasks&quot;</span>: <span class="hljs-string">&quot;/tasks&quot;</span> },
+  }),
+);
+
+app.<span class="hljs-title function_">use</span>(
+  <span class="hljs-string">&quot;/api/users&quot;</span>,
+  <span class="hljs-title function_">createProxyMiddleware</span>({
+    <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://user-service:3003&quot;</span>,
+    <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">pathRewrite</span>: { <span class="hljs-string">&quot;^/api/users&quot;</span>: <span class="hljs-string">&quot;/users&quot;</span> },
+  }),
+);
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">8080</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;API Gateway rodando na porta 8080&quot;</span>);
+});</code></pre><blockquote>
+<p>Em sistemas de produção, ferramentas como <strong>NGINX</strong>, <strong>Kong</strong>, <strong>Traefik</strong> ou <strong>AWS API Gateway</strong> são utilizadas em vez de implementações customizadas.</p>
+</blockquote>
+<h3 id="65-por-que-fastify-expandindo-a-pilha-da-disciplina">6.5 Por que Fastify? Expandindo a Pilha da Disciplina</h3>
+<p>Até este ponto do curso, todas as implementações utilizaram <strong>Express.js</strong> — e por boas razões. O Express é o framework HTTP mais estabelecido do ecossistema Node.js, com uma comunidade massiva e uma curva de aprendizado mínima. Ele serviu perfeitamente para fixar os fundamentos de APIs REST, rotas, middlewares e JWT.</p>
+<p>Contudo, ao entrar no território de microsserviços, precisamos de funcionalidades que o Express não oferece nativamente e que fazem diferença em ambientes de produção:</p>
+<table>
+<thead>
+<tr>
+<th>Funcionalidade</th>
+<th>Express</th>
+<th>Fastify</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Logging estruturado</strong></td>
+<td>Manual (Winston, Morgan)</td>
+<td>Nativo (Pino — JSON, request-id automático)</td>
+</tr>
+<tr>
+<td><strong>Validação de schema</strong></td>
+<td>Manual (Joi, Zod, express-validator)</td>
+<td>Nativo (JSON Schema compilado)</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Referência base</td>
+<td>2-4x mais rápido em benchmarks</td>
+</tr>
+<tr>
+<td><strong>TypeScript</strong></td>
+<td>Requer <code>@types</code></td>
+<td>Suporte nativo (<em>first-class</em>)</td>
+</tr>
+<tr>
+<td><strong>Sistema de plugins</strong></td>
+<td>Middleware chain (linear)</td>
+<td>Plugin system com encapsulamento de escopo</td>
+</tr>
+<tr>
+<td><strong>JSON parsing</strong></td>
+<td>Requer <code>app.use(express.json())</code></td>
+<td>Automático</td>
+</tr>
+</tbody></table>
+<p><strong>A justificativa pedagógica é dupla:</strong></p>
+<ol>
+<li><p><strong>Transferência de conceitos.</strong> Ao implementar o mesmo Gateway em Fastify, o aluno percebe que os fundamentos HTTP que aprendeu com Express são universais — rotas, verbos, headers, JSON, status codes. A troca de framework é uma mudança de sintaxe, não de paradigma.</p>
+</li>
+<li><p><strong>Práticas de produção.</strong> Logging estruturado (JSON com níveis, request-id), validação de contratos e hooks de ciclo de vida não são <em>luxos</em> opcionais em microsserviços — são requisitos operacionais. Fastify os oferece integrados, sem bibliotecas adicionais.</p>
+</li>
+</ol>
+<p><strong>Mapeamento direto Express → Fastify:</strong></p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// ── EXPRESS ──                           // ── FASTIFY ──</span>
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> app = <span class="hljs-title class_">Fastify</span>({ <span class="hljs-attr">logger</span>: <span class="hljs-literal">true</span> });
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>()); <span class="hljs-comment">// (automático)</span>
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/rota&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/rota&quot;</span>, <span class="hljs-title function_">async</span> (request, reply) =&gt; {
+    res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> });
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> }; <span class="hljs-comment">// retorno direto</span>
+  });
+});
+
+res.<span class="hljs-title function_">status</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">json</span>(data);
+reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">send</span>(data);
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>);
+app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });</code></pre><h3 id="66-api-gateway-com-fastify-e-fastifyhttp-proxy">6.6 API Gateway com Fastify e <code>@fastify/http-proxy</code></h3>
+<p>O Fastify possui um plugin oficial para proxy reverso (<code>@fastify/http-proxy</code>) que simplifica a criação de gateways. A principal vantagem sobre o <code>http-proxy-middleware</code> do Express é o sistema de <strong>hooks</strong> — funções que executam em pontos específicos do ciclo de vida da requisição.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// gateway/index.js (versão Fastify)</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Fastify</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fastify&quot;</span>);
+<span class="hljs-keyword">const</span> proxy = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@fastify/http-proxy&quot;</span>);
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title class_">Fastify</span>({ <span class="hljs-attr">logger</span>: <span class="hljs-literal">true</span> }); <span class="hljs-comment">// Pino logger ativado</span>
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PUBLIC_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_PUBLIC_KEY_PATH</span> || <span class="hljs-string">&quot;./keys/public.pem&quot;</span>,
+  <span class="hljs-string">&quot;utf8&quot;</span>,
+);
+
+<span class="hljs-comment">// ── Hook de autenticação JWT (reutilizável) ─────────────────</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">authenticateJWT</span>(<span class="hljs-params">request, reply</span>) {
+  <span class="hljs-keyword">const</span> authHeader = request.<span class="hljs-property">headers</span>.<span class="hljs-property">authorization</span>;
+  <span class="hljs-keyword">if</span> (!authHeader || !authHeader.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;Bearer &quot;</span>)) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token não fornecido.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> token = authHeader.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot; &quot;</span>)[<span class="hljs-number">1</span>];
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> decoded = jwt.<span class="hljs-title function_">verify</span>(token, <span class="hljs-variable constant_">PUBLIC_KEY</span>, { <span class="hljs-attr">algorithms</span>: [<span class="hljs-string">&quot;RS256&quot;</span>] });
+    <span class="hljs-comment">// Propaga identidade para os serviços internos via headers</span>
+    request.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-user-id&quot;</span>] = decoded.<span class="hljs-property">sub</span>;
+    request.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-user-role&quot;</span>] = decoded.<span class="hljs-property">role</span>;
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token inválido ou expirado.&quot;</span> });
+  }
+}
+
+<span class="hljs-comment">// ── Rotas de proxy ──────────────────────────────────────────</span>
+
+<span class="hljs-comment">// Auth — público (login não exige token)</span>
+app.<span class="hljs-title function_">register</span>(proxy, {
+  <span class="hljs-attr">upstream</span>: <span class="hljs-string">&quot;http://auth-service:3001&quot;</span>,
+  <span class="hljs-attr">prefix</span>: <span class="hljs-string">&quot;/auth&quot;</span>,
+  <span class="hljs-attr">rewritePrefix</span>: <span class="hljs-string">&quot;&quot;</span>,
+});
+
+<span class="hljs-comment">// Tasks — protegido (preHandler valida JWT antes de proxiar)</span>
+app.<span class="hljs-title function_">register</span>(proxy, {
+  <span class="hljs-attr">upstream</span>: <span class="hljs-string">&quot;http://task-service:3002&quot;</span>,
+  <span class="hljs-attr">prefix</span>: <span class="hljs-string">&quot;/api/tasks&quot;</span>,
+  <span class="hljs-attr">rewritePrefix</span>: <span class="hljs-string">&quot;/tasks&quot;</span>,
+  <span class="hljs-attr">preHandler</span>: authenticateJWT, <span class="hljs-comment">// ← autenticação antes do proxy</span>
+});
+
+<span class="hljs-comment">// Users — protegido</span>
+app.<span class="hljs-title function_">register</span>(proxy, {
+  <span class="hljs-attr">upstream</span>: <span class="hljs-string">&quot;http://user-service:3003&quot;</span>,
+  <span class="hljs-attr">prefix</span>: <span class="hljs-string">&quot;/api/users&quot;</span>,
+  <span class="hljs-attr">rewritePrefix</span>: <span class="hljs-string">&quot;/users&quot;</span>,
+  <span class="hljs-attr">preHandler</span>: authenticateJWT,
+});
+
+<span class="hljs-comment">// Health check agregado</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> services = [
+    <span class="hljs-string">&quot;auth-service:3001&quot;</span>,
+    <span class="hljs-string">&quot;task-service:3002&quot;</span>,
+    <span class="hljs-string">&quot;user-service:3003&quot;</span>,
+  ];
+  <span class="hljs-keyword">const</span> results = {};
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> svc <span class="hljs-keyword">of</span> services) {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`http://<span class="hljs-subst">${svc}</span>/health`</span>, {
+        <span class="hljs-attr">signal</span>: <span class="hljs-title class_">AbortSignal</span>.<span class="hljs-title function_">timeout</span>(<span class="hljs-number">3000</span>),
+      });
+      results[svc.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>)[<span class="hljs-number">0</span>]] = { <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;up&quot;</span> };
+    } <span class="hljs-keyword">catch</span> {
+      results[svc.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>)[<span class="hljs-number">0</span>]] = { <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;down&quot;</span> };
+    }
+  }
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;gateway&quot;</span>, <span class="hljs-attr">downstream</span>: results };
+});
+
+app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">8080</span>, <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;0.0.0.0&quot;</span> });</code></pre><p><strong>O que muda em relação à versão Express (seção 6.4):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Express + http-proxy-middleware</th>
+<th>Fastify + @fastify/http-proxy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Roteamento</td>
+<td><code>app.use(&#39;/path&#39;, createProxyMiddleware({...}))</code></td>
+<td><code>app.register(proxy, { prefix: &#39;/path&#39;, ... })</code></td>
+</tr>
+<tr>
+<td>Autenticação</td>
+<td>Middleware separado na chain</td>
+<td><code>preHandler</code> hook integrado ao proxy</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Manual (Morgan, console.log)</td>
+<td>Automático (Pino, JSON estruturado)</td>
+</tr>
+<tr>
+<td>Configuração</td>
+<td><code>target</code>, <code>changeOrigin</code>, <code>pathRewrite</code></td>
+<td><code>upstream</code>, <code>prefix</code>, <code>rewritePrefix</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Nota para os alunos:</strong> Ambas as implementações produzem o mesmo resultado funcional. A diferença está na ergonomia do código e nas funcionalidades operacionais (logging, hooks) que o Fastify oferece sem dependências adicionais.</p>
+</blockquote>
+<hr>
+<h2 id="7-autenticação-em-microsserviços--a-ponte-com-jwt">7. Autenticação em Microsserviços — A Ponte com JWT</h2>
+<p>Nos nossos estudos sobre autenticação, foi mencionado que a camada de autenticação seria uma boa ideia para decompor em um microsserviço. Pois bem, aqui vamos entender o porque precisa o JWT se encaixa bem principalmente por ser <em>stateless</em>.</p>
+<h3 id="71-o-desafio-onde-validar-o-token">7.1 O Desafio: Onde Validar o Token?</h3>
+<p>Em um monolito, a validação do JWT acontece em um único middleware. Em microsserviços, surge a pergunta: <strong>cada serviço deve validar o token, ou apenas o gateway?</strong></p>
+<p>Existem duas abordagens principais:</p>
+<p><strong>Abordagem 1 — Validação centralizada no Gateway:</strong></p>
+<pre><code class="hljs language-plaintext">Cliente → Gateway (valida JWT) → Serviço interno (confia no Gateway)
+                                  req.headers[&quot;x-user-id&quot;] = &quot;42&quot;
+                                  req.headers[&quot;x-user-role&quot;] = &quot;admin&quot;</code></pre><p>O Gateway valida o token e propaga as informações do usuário via <strong>headers internos</strong>. Os serviços internos confiam no Gateway e não revalidam.</p>
+<p><strong>Abordagem 2 — Validação distribuída (cada serviço valida):</strong></p>
+<pre><code class="hljs language-plaintext">Cliente → Gateway (repassa token) → Serviço interno (valida JWT localmente)
+                                     jwt.verify(token, PUBLIC_KEY)</code></pre><p>Cada serviço valida o token de forma independente. Isso é mais seguro (zero trust), mas exige que todos os serviços tenham acesso à chave de verificação.</p>
+<h3 id="72-por-que-rs256-é-essencial-em-microsserviços">7.2 Por que RS256 é Essencial em Microsserviços</h3>
+<p>No guia JWT, seção 3.1, apresentamos dois algoritmos:</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmo</th>
+<th>Tipo</th>
+<th>Chave para assinar</th>
+<th>Chave para verificar</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>HS256</strong></td>
+<td>Simétrico</td>
+<td>Segredo compartilhado</td>
+<td><strong>Mesmo</strong> segredo</td>
+</tr>
+<tr>
+<td><strong>RS256</strong></td>
+<td>Assimétrico</td>
+<td>Chave <strong>privada</strong></td>
+<td>Chave <strong>pública</strong></td>
+</tr>
+</tbody></table>
+<p>Com <strong>HS256</strong>, o mesmo segredo que assina o token também o verifica. Em microsserviços, isso significa distribuir o segredo para <strong>todos</strong> os serviços — se qualquer serviço for comprometido, o atacante pode <strong>forjar tokens</strong>.</p>
+<p>Com <strong>RS256</strong>, apenas o <code>auth-service</code> possui a chave privada (assina tokens). Os demais serviços possuem apenas a chave pública (verificam tokens). Um serviço comprometido <strong>não pode forjar tokens</strong> — pode apenas verificar os existentes.</p>
+<pre><code class="hljs language-plaintext">┌──────────────────┐
+│   auth-service   │  Possui: CHAVE PRIVADA (assina)
+│                  │  Expõe:  GET /.well-known/jwks.json
+└────────┬─────────┘
+         │ publica chave pública
+         ▼
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│  task-service    │  │  user-service    │  │  report-service  │
+│                  │  │                  │  │                  │
+│ Possui: CHAVE    │  │ Possui: CHAVE    │  │ Possui: CHAVE    │
+│ PÚBLICA (verifica)│  │ PÚBLICA (verifica)│  │ PÚBLICA (verifica)│
+└──────────────────┘  └──────────────────┘  └──────────────────┘</code></pre><h3 id="73-implementação-prática-com-rs256">7.3 Implementação Prática com RS256</h3>
+<p><strong>Geração do par de chaves (terminal):</strong></p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Gerar chave privada (2048 bits)</span>
+openssl genrsa -out private.pem 2048
+
+<span class="hljs-comment"># Extrair chave pública</span>
+openssl rsa -<span class="hljs-keyword">in</span> private.pem -pubout -out public.pem</code></pre><p><strong>No <code>auth-service</code> (assina com chave privada):</strong></p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRIVATE_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">&quot;./keys/private.pem&quot;</span>, <span class="hljs-string">&quot;utf8&quot;</span>);
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">generateToken</span>(<span class="hljs-params">user</span>) {
+  <span class="hljs-keyword">const</span> payload = { <span class="hljs-attr">sub</span>: user.<span class="hljs-property">id</span>, <span class="hljs-attr">role</span>: user.<span class="hljs-property">role</span> };
+  <span class="hljs-keyword">return</span> jwt.<span class="hljs-title function_">sign</span>(payload, <span class="hljs-variable constant_">PRIVATE_KEY</span>, {
+    <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;RS256&quot;</span>,
+    <span class="hljs-attr">expiresIn</span>: <span class="hljs-string">&quot;1h&quot;</span>,
+    <span class="hljs-attr">issuer</span>: <span class="hljs-string">&quot;auth-service&quot;</span>,
+  });
+}</code></pre><p><strong>Nos demais serviços (verificam com chave pública):</strong></p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PUBLIC_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">&quot;./keys/public.pem&quot;</span>, <span class="hljs-string">&quot;utf8&quot;</span>);
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">authenticateToken</span>(<span class="hljs-params">req, res, next</span>) {
+  <span class="hljs-keyword">const</span> authHeader = req.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;authorization&quot;</span>];
+  <span class="hljs-keyword">const</span> token = authHeader &amp;&amp; authHeader.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot; &quot;</span>)[<span class="hljs-number">1</span>];
+
+  <span class="hljs-keyword">if</span> (!token) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token não fornecido.&quot;</span> });
+  }
+
+  jwt.<span class="hljs-title function_">verify</span>(token, <span class="hljs-variable constant_">PUBLIC_KEY</span>, { <span class="hljs-attr">algorithms</span>: [<span class="hljs-string">&quot;RS256&quot;</span>] }, <span class="hljs-function">(<span class="hljs-params">err, decoded</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">403</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token inválido.&quot;</span> });
+    }
+    req.<span class="hljs-property">user</span> = decoded;
+    <span class="hljs-title function_">next</span>();
+  });
+}</code></pre><blockquote>
+<p>Observe o parâmetro <code>algorithms: [&quot;RS256&quot;]</code> no <code>jwt.verify()</code>. Isso é uma medida de segurança que força a biblioteca a aceitar <strong>apenas</strong> tokens assinados com RS256, rejeitando tokens com <code>alg: &quot;none&quot;</code> ou <code>alg: &quot;HS256&quot;</code> que um atacante poderia tentar injetar.</p>
+</blockquote>
+<hr>
+<h2 id="8-docker--fundamentos-de-containerização">8. Docker — Fundamentos de Containerização</h2>
+<h3 id="81-por-que-docker-é-fundamental-para-microsserviços">8.1 Por que Docker é Fundamental para Microsserviços?</h3>
+<p>Docker resolve um problema clássico do desenvolvimento de software: <strong>&quot;na minha máquina funciona.&quot;</strong> Um container Docker empacota a aplicação com todas as suas dependências (runtime, bibliotecas, configurações) em uma unidade isolada e portável.</p>
+<p>Para microsserviços, Docker é a tecnologia que viabiliza na prática a independência entre serviços. Cada serviço roda em seu próprio container, com suas próprias dependências, sem conflito com os demais.</p>
+<h3 id="82-conceitos-essenciais">8.2 Conceitos Essenciais</h3>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Analogia</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Imagem</strong></td>
+<td>Receita de bolo</td>
+<td>Template imutável e somente-leitura que define o ambiente</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>Bolo pronto</td>
+<td>Instância em execução de uma imagem</td>
+</tr>
+<tr>
+<td><strong>Dockerfile</strong></td>
+<td>Livro de receitas</td>
+<td>Arquivo texto com instruções para construir uma imagem</td>
+</tr>
+<tr>
+<td><strong>Registry</strong></td>
+<td>Padaria central</td>
+<td>Repositório de imagens (Docker Hub, GitHub Container Registry)</td>
+</tr>
+<tr>
+<td><strong>Volume</strong></td>
+<td>Vasilha separada</td>
+<td>Mecanismo de persistência de dados fora do container</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs language-plaintext">  ┌───────────────────────────────────────────────────┐
+  │  Dockerfile → (docker build) → Imagem            │
+  │                                   │               │
+  │                          (docker run)             │
+  │                                   │               │
+  │                              Container            │
+  │                          (instância viva)         │
+  └───────────────────────────────────────────────────┘</code></pre><h3 id="83-instalação">8.3 Instalação</h3>
+<ul>
+<li><strong>Windows/Mac:</strong> Instale o <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a></li>
+<li><strong>Linux:</strong> Siga o <a href="https://docs.docker.com/engine/install/">guia oficial</a> para sua distribuição</li>
+</ul>
+<p>Verifique a instalação:</p>
+<pre><code class="hljs language-bash">docker --version
+<span class="hljs-comment"># Docker version 27.x.x</span>
+
+docker compose version
+<span class="hljs-comment"># Docker Compose version v2.x.x</span></code></pre><h3 id="84-comandos-essenciais">8.4 Comandos Essenciais</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Imagens</span>
+docker images                    <span class="hljs-comment"># Lista imagens locais</span>
+docker pull node:22-alpine       <span class="hljs-comment"># Baixa imagem do registry</span>
+docker build -t meu-app .        <span class="hljs-comment"># Constrói imagem a partir do Dockerfile</span>
+docker rmi &lt;image_id&gt;            <span class="hljs-comment"># Remove imagem</span>
+
+<span class="hljs-comment"># Containers</span>
+docker ps                        <span class="hljs-comment"># Lista containers em execução</span>
+docker ps -a                     <span class="hljs-comment"># Lista todos (incluindo parados)</span>
+docker run -p 3000:3000 meu-app  <span class="hljs-comment"># Cria e executa container</span>
+docker stop &lt;container_id&gt;       <span class="hljs-comment"># Para container</span>
+docker <span class="hljs-built_in">rm</span> &lt;container_id&gt;         <span class="hljs-comment"># Remove container</span>
+
+<span class="hljs-comment"># Logs e debug</span>
+docker logs &lt;container_id&gt;       <span class="hljs-comment"># Exibe logs do container</span>
+docker <span class="hljs-built_in">exec</span> -it &lt;<span class="hljs-built_in">id</span>&gt; sh          <span class="hljs-comment"># Abre shell dentro do container</span></code></pre><h3 id="85-container-vs-máquina-virtual">8.5 Container vs. Máquina Virtual</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Container</th>
+<th>Máquina Virtual</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Isolamento</strong></td>
+<td>Nível de processo (compartilha kernel do host)</td>
+<td>Nível de hardware (kernel próprio)</td>
+</tr>
+<tr>
+<td><strong>Tamanho</strong></td>
+<td>Megabytes (5–200 MB)</td>
+<td>Gigabytes (1–10 GB)</td>
+</tr>
+<tr>
+<td><strong>Inicialização</strong></td>
+<td>Segundos</td>
+<td>Minutos</td>
+</tr>
+<tr>
+<td><strong>Overhead</strong></td>
+<td>Mínimo</td>
+<td>Significativo (hypervisor)</td>
+</tr>
+<tr>
+<td><strong>Portabilidade</strong></td>
+<td>Alta (roda onde Docker roda)</td>
+<td>Média (depende do hypervisor)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="9-dockerfile--construindo-imagens">9. Dockerfile — Construindo Imagens</h2>
+<p>O Dockerfile é um arquivo texto que contém as <strong>instruções sequenciais</strong> para construir uma imagem Docker. Cada instrução cria uma <strong>camada</strong> (layer) na imagem.</p>
+<h3 id="91-dockerfile-para-uma-api-nodejs">9.1 Dockerfile para uma API Node.js</h3>
+<pre><code class="hljs language-dockerfile"><span class="hljs-comment"># ---- Imagem base ----</span>
+<span class="hljs-comment"># Usa Node.js 20 com Alpine Linux (imagem leve, ~50MB)</span>
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">22</span>-alpine
+
+<span class="hljs-comment"># ---- Diretório de trabalho ----</span>
+<span class="hljs-comment"># Cria e define /app como diretório de trabalho</span>
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+
+<span class="hljs-comment"># ---- Dependências ----</span>
+<span class="hljs-comment"># Copia APENAS os arquivos de dependência primeiro (otimiza cache)</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> package*.json ./</span>
+
+<span class="hljs-comment"># Instala dependências de produção</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm ci --only=production</span>
+
+<span class="hljs-comment"># ---- Código da aplicação ----</span>
+<span class="hljs-comment"># Copia o restante do código</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
+
+<span class="hljs-comment"># ---- Porta ----</span>
+<span class="hljs-comment"># Declara a porta que o container expõe (documentação)</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span>
+
+<span class="hljs-comment"># ---- Comando de inicialização ----</span>
+<span class="hljs-comment"># Define o comando que será executado ao iniciar o container</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;index.js&quot;</span>]</span></code></pre><h3 id="92-instruções-mais-utilizadas">9.2 Instruções Mais Utilizadas</h3>
+<table>
+<thead>
+<tr>
+<th>Instrução</th>
+<th>Propósito</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>FROM</code></td>
+<td>Define imagem base</td>
+<td><code>FROM node:22-alpine</code></td>
+</tr>
+<tr>
+<td><code>WORKDIR</code></td>
+<td>Define diretório de trabalho</td>
+<td><code>WORKDIR /app</code></td>
+</tr>
+<tr>
+<td><code>COPY</code></td>
+<td>Copia arquivos do host para a imagem</td>
+<td><code>COPY package.json ./</code></td>
+</tr>
+<tr>
+<td><code>RUN</code></td>
+<td>Executa comando durante o build</td>
+<td><code>RUN npm ci</code></td>
+</tr>
+<tr>
+<td><code>EXPOSE</code></td>
+<td>Documenta porta do container</td>
+<td><code>EXPOSE 3000</code></td>
+</tr>
+<tr>
+<td><code>CMD</code></td>
+<td>Comando executado ao iniciar container</td>
+<td><code>CMD [&quot;node&quot;, &quot;index.js&quot;]</code></td>
+</tr>
+<tr>
+<td><code>ENV</code></td>
+<td>Define variável de ambiente</td>
+<td><code>ENV NODE_ENV=production</code></td>
+</tr>
+</tbody></table>
+<h3 id="93-o-arquivo-dockerignore">9.3 O Arquivo <code>.dockerignore</code></h3>
+<p>Assim como o <code>.gitignore</code>, o <code>.dockerignore</code> evita que arquivos desnecessários sejam copiados para a imagem:</p>
+<pre><code class="hljs language-plaintext">node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+*.md
+tests/</code></pre><h3 id="94-otimização-por-que-copiar-packagejson-antes">9.4 Otimização: Por que Copiar <code>package.json</code> Antes?</h3>
+<p>A ordem das instruções no Dockerfile importa para o <strong>cache de camadas</strong>:</p>
+<pre><code class="hljs language-dockerfile"><span class="hljs-comment"># ✓ CORRETO: Dependências são cacheadas</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> package*.json ./     <span class="hljs-comment"># Camada 1: muda raramente → cache reutilizado</span></span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm ci                <span class="hljs-comment"># Camada 2: recria só se package.json mudou</span></span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .                  <span class="hljs-comment"># Camada 3: muda frequentemente</span></span>
+
+<span class="hljs-comment"># ✗ INEFICIENTE: Cache desperdiçado a cada mudança de código</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .                  <span class="hljs-comment"># Qualquer mudança no código invalida TUDO</span></span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm ci                <span class="hljs-comment"># npm ci roda toda vez, mesmo sem mudanças</span></span></code></pre><h3 id="95-construindo-e-executando">9.5 Construindo e Executando</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Construir a imagem</span>
+docker build -t task-service:1.0 .
+
+<span class="hljs-comment"># Executar o container</span>
+docker run -d \
+  --name task-svc \
+  -p 3002:3000 \
+  -e DB_PATH=/app/data/tasks.db \
+  task-service:1.0
+
+<span class="hljs-comment"># Verificar se está rodando</span>
+docker ps
+
+<span class="hljs-comment"># Ver logs</span>
+docker logs task-svc</code></pre><hr>
+<h2 id="10-docker-compose--orquestrando-múltiplos-serviços">10. Docker Compose — Orquestrando Múltiplos Serviços</h2>
+<p>Executar cada container manualmente com <code>docker run</code> é viável para um ou dois serviços, mas em uma arquitetura de microsserviços com 3, 5 ou 10 serviços, torna-se impraticável. O <strong>Docker Compose</strong> resolve esse problema permitindo definir e orquestrar <strong>todos os serviços</strong> em um único arquivo YAML.</p>
+<h3 id="101-estrutura-do-docker-composeyml">10.1 Estrutura do <code>docker-compose.yml</code></h3>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># docker-compose.yml</span>
+<span class="hljs-attr">services:</span>
+  <span class="hljs-comment"># --- API Gateway ---</span>
+  <span class="hljs-attr">gateway:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./gateway</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8080:8080&quot;</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">auth-service</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">task-service</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">AUTH_SERVICE_URL=http://auth-service:3001</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">TASK_SERVICE_URL=http://task-service:3002</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-network</span>
+
+  <span class="hljs-comment"># --- Serviço de Autenticação ---</span>
+  <span class="hljs-attr">auth-service:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./services/auth</span>
+    <span class="hljs-attr">expose:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3001&quot;</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">PORT=3001</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PATH=/app/data/users.db</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">JWT_PRIVATE_KEY_PATH=/app/keys/private.pem</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">auth-data:/app/data</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./keys:/app/keys:ro</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-network</span>
+
+  <span class="hljs-comment"># --- Serviço de Tarefas ---</span>
+  <span class="hljs-attr">task-service:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./services/tasks</span>
+    <span class="hljs-attr">expose:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3002&quot;</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">PORT=3002</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PATH=/app/data/tasks.db</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">JWT_PUBLIC_KEY_PATH=/app/keys/public.pem</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">task-data:/app/data</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./keys:/app/keys:ro</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-network</span>
+
+<span class="hljs-comment"># --- Volumes persistentes ---</span>
+<span class="hljs-attr">volumes:</span>
+  <span class="hljs-attr">auth-data:</span>
+  <span class="hljs-attr">task-data:</span>
+
+<span class="hljs-comment"># --- Rede interna ---</span>
+<span class="hljs-attr">networks:</span>
+  <span class="hljs-attr">app-network:</span>
+    <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span></code></pre><h3 id="102-conceitos-chave-do-compose">10.2 Conceitos-Chave do Compose</h3>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>build</code></td>
+<td>Caminho para o Dockerfile do serviço</td>
+</tr>
+<tr>
+<td><code>ports</code></td>
+<td>Mapeia porta do host → container (<code>&quot;host:container&quot;</code>) — expõe ao mundo externo</td>
+</tr>
+<tr>
+<td><code>expose</code></td>
+<td>Expõe porta <strong>apenas</strong> na rede interna (entre containers)</td>
+</tr>
+<tr>
+<td><code>depends_on</code></td>
+<td>Define ordem de inicialização (não garante que o serviço está pronto)</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>Variáveis de ambiente do container</td>
+</tr>
+<tr>
+<td><code>volumes</code></td>
+<td>Persistência de dados e montagem de arquivos</td>
+</tr>
+<tr>
+<td><code>networks</code></td>
+<td>Rede virtual compartilhada entre serviços</td>
+</tr>
+</tbody></table>
+<h3 id="103-a-diferença-entre-ports-e-expose">10.3 A Diferença entre <code>ports</code> e <code>expose</code></h3>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># PORTS: Acessível do host (seu computador) e entre containers</span>
+<span class="hljs-attr">ports:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8080:8080&quot;</span> <span class="hljs-comment"># localhost:8080 → container:8080</span>
+
+<span class="hljs-comment"># EXPOSE: Acessível APENAS entre containers na mesma rede</span>
+<span class="hljs-attr">expose:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3001&quot;</span> <span class="hljs-comment"># Outros containers acessam via auth-service:3001</span>
+    <span class="hljs-comment"># Seu computador NÃO acessa diretamente</span></code></pre><p>No contexto de microsserviços, apenas o <strong>Gateway</strong> utiliza <code>ports</code> (é a porta de entrada pública). Os serviços internos utilizam <code>expose</code>, pois não devem ser acessíveis diretamente de fora. Este é um bom exemplo de como podemos inserir segurança em todas as camadas da aplicação, e não somente através de middlewares de aplicação.</p>
+<h3 id="104-dns-automático">10.4 DNS Automático</h3>
+<p>O Docker Compose cria automaticamente um <strong>DNS interno</strong> baseado nos nomes dos serviços. Dentro da rede <code>app-network</code>, o <code>gateway</code> pode acessar o <code>auth-service</code> pelo hostname <code>auth-service</code> (não pelo IP):</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Dentro do gateway, ao fazer proxy para o auth-service:</span>
+<span class="hljs-keyword">const</span> target = <span class="hljs-string">&quot;http://auth-service:3001&quot;</span>; <span class="hljs-comment">// Resolvido automaticamente pelo Docker DNS</span></code></pre><h3 id="105-comandos-do-compose">10.5 Comandos do Compose</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Construir e iniciar todos os serviços</span>
+docker compose up --build
+
+<span class="hljs-comment"># Iniciar em segundo plano (detached)</span>
+docker compose up -d --build
+
+<span class="hljs-comment"># Ver logs de todos os serviços</span>
+docker compose logs -f
+
+<span class="hljs-comment"># Ver logs de um serviço específico</span>
+docker compose logs -f auth-service
+
+<span class="hljs-comment"># Parar todos os serviços</span>
+docker compose down
+
+<span class="hljs-comment"># Parar e remover volumes (cuidado: apaga dados persistidos)</span>
+docker compose down -v
+
+<span class="hljs-comment"># Reconstruir um serviço específico</span>
+docker compose build task-service
+docker compose up -d task-service</code></pre><hr>
+<h2 id="11-implementação-prática--decompondo-uma-api-monolítica-express">11. Implementação Prática — Decompondo uma API Monolítica (Express)</h2>
+<p>Esta seção apresenta o exercício central: transformar a API monolítica do Trabalho I em uma arquitetura de microsserviços containerizados com Docker Compose.</p>
+<h3 id="111-estrutura-de-diretórios-do-projeto">11.1 Estrutura de Diretórios do Projeto</h3>
+<pre><code class="hljs language-plaintext">microservices-tasks/
+├── docker-compose.yml
+├── keys/
+│   ├── private.pem          # Chave privada (só auth-service usa)
+│   └── public.pem           # Chave pública (task-service usa)
+├── gateway/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── index.js
+├── services/
+│   ├── auth/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   ├── index.js
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   └── data/
+│   └── tasks/
+│       ├── Dockerfile
+│       ├── package.json
+│       ├── index.js
+│       ├── controllers/
+│       ├── middleware/
+│       ├── services/
+│       └── data/</code></pre><h3 id="112-serviço-de-autenticação-auth-service">11.2 Serviço de Autenticação (<code>auth-service</code>)</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// services/auth/index.js</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;bcrypt&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3001</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRIVATE_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_PRIVATE_KEY_PATH</span> || <span class="hljs-string">&quot;./keys/private.pem&quot;</span>,
+  <span class="hljs-string">&quot;utf8&quot;</span>,
+);
+
+<span class="hljs-comment">// Simulação de banco de dados em memória</span>
+<span class="hljs-keyword">const</span> users = [
+  {
+    <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;user_1&quot;</span>,
+    <span class="hljs-attr">email</span>: <span class="hljs-string">&quot;aluno@ifsul.edu.br&quot;</span>,
+    <span class="hljs-comment">// hash de &quot;senha123&quot; com bcrypt (saltRounds=10)</span>
+    <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRS&quot;</span>,
+    <span class="hljs-attr">role</span>: <span class="hljs-string">&quot;user&quot;</span>,
+  },
+];
+
+<span class="hljs-comment">// POST /login</span>
+app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/login&quot;</span>, <span class="hljs-title function_">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">const</span> { email, password } = req.<span class="hljs-property">body</span>;
+
+  <span class="hljs-keyword">if</span> (!email || !password) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Email e senha são obrigatórios.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> user = users.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">u</span>) =&gt;</span> u.<span class="hljs-property">email</span> === email);
+  <span class="hljs-keyword">if</span> (!user) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Credenciais inválidas.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> valid = <span class="hljs-keyword">await</span> bcrypt.<span class="hljs-title function_">compare</span>(password, user.<span class="hljs-property">password</span>);
+  <span class="hljs-keyword">if</span> (!valid) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Credenciais inválidas.&quot;</span> });
+  }
+
+  <span class="hljs-comment">// Assina com RS256 (chave privada)</span>
+  <span class="hljs-keyword">const</span> token = jwt.<span class="hljs-title function_">sign</span>({ <span class="hljs-attr">sub</span>: user.<span class="hljs-property">id</span>, <span class="hljs-attr">role</span>: user.<span class="hljs-property">role</span> }, <span class="hljs-variable constant_">PRIVATE_KEY</span>, {
+    <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;RS256&quot;</span>,
+    <span class="hljs-attr">expiresIn</span>: <span class="hljs-string">&quot;1h&quot;</span>,
+    <span class="hljs-attr">issuer</span>: <span class="hljs-string">&quot;auth-service&quot;</span>,
+  });
+
+  <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ token });
+});
+
+<span class="hljs-comment">// Health check</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>, <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;auth-service&quot;</span> });
+});
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`auth-service rodando na porta <span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><h3 id="113-serviço-de-tarefas-task-service">11.3 Serviço de Tarefas (<code>task-service</code>)</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// services/tasks/index.js</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3002</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PUBLIC_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_PUBLIC_KEY_PATH</span> || <span class="hljs-string">&quot;./keys/public.pem&quot;</span>,
+  <span class="hljs-string">&quot;utf8&quot;</span>,
+);
+
+<span class="hljs-comment">// Middleware de autenticação (verifica com chave pública)</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">authenticateToken</span>(<span class="hljs-params">req, res, next</span>) {
+  <span class="hljs-keyword">const</span> authHeader = req.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;authorization&quot;</span>];
+  <span class="hljs-keyword">const</span> token = authHeader &amp;&amp; authHeader.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot; &quot;</span>)[<span class="hljs-number">1</span>];
+
+  <span class="hljs-keyword">if</span> (!token) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token não fornecido.&quot;</span> });
+  }
+
+  jwt.<span class="hljs-title function_">verify</span>(token, <span class="hljs-variable constant_">PUBLIC_KEY</span>, { <span class="hljs-attr">algorithms</span>: [<span class="hljs-string">&quot;RS256&quot;</span>] }, <span class="hljs-function">(<span class="hljs-params">err, decoded</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-keyword">if</span> (err.<span class="hljs-property">name</span> === <span class="hljs-string">&quot;TokenExpiredError&quot;</span>) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token expirado.&quot;</span> });
+      }
+      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">403</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Token inválido.&quot;</span> });
+    }
+    req.<span class="hljs-property">user</span> = decoded;
+    <span class="hljs-title function_">next</span>();
+  });
+}
+
+<span class="hljs-comment">// Base de dados em memória</span>
+<span class="hljs-keyword">let</span> tasks = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Estudar microsserviços&quot;</span>, <span class="hljs-attr">userId</span>: <span class="hljs-string">&quot;user_1&quot;</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> },
+];
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">// GET /tasks — público</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/tasks&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.<span class="hljs-title function_">json</span>(tasks);
+});
+
+<span class="hljs-comment">// POST /tasks — protegido</span>
+app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/tasks&quot;</span>, authenticateToken, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> { title } = req.<span class="hljs-property">body</span>;
+  <span class="hljs-keyword">if</span> (!title) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Título é obrigatório.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> task = {
+    <span class="hljs-attr">id</span>: <span class="hljs-title class_">String</span>(nextId++),
+    title,
+    <span class="hljs-attr">userId</span>: req.<span class="hljs-property">user</span>.<span class="hljs-property">sub</span>,
+    <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>,
+  };
+  tasks.<span class="hljs-title function_">push</span>(task);
+  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">json</span>(task);
+});
+
+<span class="hljs-comment">// DELETE /tasks/:id — protegido</span>
+app.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&quot;/tasks/:id&quot;</span>, authenticateToken, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> index = tasks.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">t</span>) =&gt;</span> t.<span class="hljs-property">id</span> === req.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
+  <span class="hljs-keyword">if</span> (index === -<span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Tarefa não encontrada.&quot;</span> });
+  }
+  tasks.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>);
+  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">204</span>).<span class="hljs-title function_">send</span>();
+});
+
+<span class="hljs-comment">// Health check</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>, <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;task-service&quot;</span> });
+});
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`task-service rodando na porta <span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><h3 id="114-dockerfile-idêntico-para-ambos-os-serviços">11.4 Dockerfile (idêntico para ambos os serviços)</h3>
+<pre><code class="hljs language-dockerfile"><span class="hljs-keyword">FROM</span> node:<span class="hljs-number">22</span>-alpine
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> package*.json ./</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm ci --only=production</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;index.js&quot;</span>]</span></code></pre><h3 id="115-executando-o-projeto">11.5 Executando o Projeto</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 1. Gerar par de chaves RSA</span>
+<span class="hljs-built_in">mkdir</span> -p keys
+openssl genrsa -out keys/private.pem 2048
+openssl rsa -<span class="hljs-keyword">in</span> keys/private.pem -pubout -out keys/public.pem
+
+<span class="hljs-comment"># 2. Subir todos os serviços</span>
+docker compose up --build
+
+<span class="hljs-comment"># 3. Testar login (via gateway)</span>
+curl -X POST http://localhost:8080/auth/login \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;email&quot;:&quot;aluno@ifsul.edu.br&quot;,&quot;password&quot;:&quot;senha123&quot;}&#x27;</span>
+
+<span class="hljs-comment"># Resposta: { &quot;token&quot;: &quot;eyJhbGciOiJSUzI1NiIs...&quot; }</span>
+
+<span class="hljs-comment"># 4. Criar tarefa (usando o token recebido)</span>
+curl -X POST http://localhost:8080/api/tasks \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -H <span class="hljs-string">&quot;Authorization: Bearer &lt;token_aqui&gt;&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;title&quot;:&quot;Minha primeira tarefa em microsserviço&quot;}&#x27;</span>
+
+<span class="hljs-comment"># 5. Listar tarefas</span>
+curl http://localhost:8080/api/tasks</code></pre><h3 id="116-o-que-observar-na-prática">11.6 O que Observar na Prática</h3>
+<p>Ao rodar <code>docker compose up --build</code>, observe no terminal:</p>
+<ol>
+<li><strong>Build paralelo:</strong> Docker constrói as imagens de cada serviço</li>
+<li><strong>Inicialização ordenada:</strong> Gateway aguarda auth e tasks (via <code>depends_on</code>)</li>
+<li><strong>Logs separados:</strong> Cada serviço exibe seus logs com prefixo colorido</li>
+<li><strong>Isolamento de rede:</strong> Serviços internos não são acessíveis de fora (apenas via gateway)</li>
+<li><strong>Persistência:</strong> Volumes mantêm dados entre reinícios</li>
+</ol>
+<hr>
+<h2 id="12-implementação-com-fastify--microsserviços-com-persistência">12. Implementação com Fastify — Microsserviços com Persistência</h2>
+<p>A seção anterior demonstrou a decomposição de um monolito usando Express e dados em memória. Agora, apresentamos a mesma arquitetura reimplementada com <strong>Fastify</strong> e <strong>better-sqlite3</strong>, adotando práticas mais próximas de ambientes de produção: logging estruturado nativo, persistência real via SQLite e um API Gateway com autenticação JWT centralizada via hooks.</p>
+<blockquote>
+<p><strong>Por que duas implementações?</strong> A seção 11 fixa os conceitos fundamentais (rotas, JWT, Docker Compose) com a sintaxe Express que o aluno já domina. Esta seção mostra como esses mesmos conceitos se traduzem em um framework moderno, sem alterar a essência — rotas HTTP, JSON, status codes e containers são os mesmos. A diferença está na ergonomia e nas funcionalidades integradas.</p>
+</blockquote>
+<p>Para uma comparação detalhada entre Express e Fastify, consulte a seção 6.5.</p>
+<h3 id="121-estrutura-de-diretórios-do-projeto">12.1 Estrutura de Diretórios do Projeto</h3>
+<pre><code class="hljs language-plaintext">microservices-fastify/
+├── docker-compose.yml
+├── keys/
+│   ├── private.pem          # Chave privada RSA (só auth-service usa)
+│   └── public.pem           # Chave pública (gateway e task-service usam)
+├── gateway/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── index.js             # Fastify + @fastify/http-proxy
+└── services/
+    ├── auth/
+    │   ├── Dockerfile
+    │   ├── package.json
+    │   └── index.js          # Fastify + bcrypt + better-sqlite3
+    └── tasks/
+        ├── Dockerfile
+        ├── package.json
+        └── index.js          # Fastify + better-sqlite3</code></pre><h3 id="122-serviço-de-autenticação-auth-service">12.2 Serviço de Autenticação (<code>auth-service</code>)</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// services/auth/index.js</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Fastify</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fastify&quot;</span>);
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;bcrypt&quot;</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Database</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;better-sqlite3&quot;</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title class_">Fastify</span>({ <span class="hljs-attr">logger</span>: <span class="hljs-literal">true</span> }); <span class="hljs-comment">// Pino logger ativado</span>
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3001</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">DB_PATH</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_PATH</span> || <span class="hljs-string">&quot;./data/auth.db&quot;</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PRIVATE_KEY</span> = fs.<span class="hljs-title function_">readFileSync</span>(
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">JWT_PRIVATE_KEY_PATH</span> || <span class="hljs-string">&quot;./keys/private.pem&quot;</span>,
+  <span class="hljs-string">&quot;utf8&quot;</span>,
+);
+
+<span class="hljs-comment">// ── Banco de dados com persistência real ────────────────────</span>
+<span class="hljs-keyword">const</span> db = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Database</span>(<span class="hljs-variable constant_">DB_PATH</span>);
+
+db.<span class="hljs-title function_">exec</span>(<span class="hljs-string">`
+  CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT DEFAULT &#x27;user&#x27;,
+    name TEXT NOT NULL
+  )
+`</span>);
+
+<span class="hljs-comment">// Seed automático (apenas se tabela vazia)</span>
+<span class="hljs-keyword">const</span> count = db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT COUNT(*) as total FROM users&quot;</span>).<span class="hljs-title function_">get</span>();
+<span class="hljs-keyword">if</span> (count.<span class="hljs-property">total</span> === <span class="hljs-number">0</span>) {
+  <span class="hljs-keyword">const</span> salt = bcrypt.<span class="hljs-title function_">genSaltSync</span>(<span class="hljs-number">10</span>);
+  <span class="hljs-keyword">const</span> insert = db.<span class="hljs-title function_">prepare</span>(
+    <span class="hljs-string">&quot;INSERT INTO users (id, email, password, role, name) VALUES (?, ?, ?, ?, ?)&quot;</span>,
+  );
+  insert.<span class="hljs-title function_">run</span>(
+    <span class="hljs-string">&quot;user_1&quot;</span>,
+    <span class="hljs-string">&quot;aluno@ifsul.edu.br&quot;</span>,
+    bcrypt.<span class="hljs-title function_">hashSync</span>(<span class="hljs-string">&quot;senha123&quot;</span>, salt),
+    <span class="hljs-string">&quot;user&quot;</span>,
+    <span class="hljs-string">&quot;Aluno IFSul&quot;</span>,
+  );
+  insert.<span class="hljs-title function_">run</span>(
+    <span class="hljs-string">&quot;user_2&quot;</span>,
+    <span class="hljs-string">&quot;admin@ifsul.edu.br&quot;</span>,
+    bcrypt.<span class="hljs-title function_">hashSync</span>(<span class="hljs-string">&quot;admin123&quot;</span>, salt),
+    <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-string">&quot;Admin IFSul&quot;</span>,
+  );
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Seed: 2 usuários criados&quot;</span>);
+}
+
+<span class="hljs-comment">// POST /login</span>
+app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/login&quot;</span>, <span class="hljs-title function_">async</span> (request, reply) =&gt; {
+  <span class="hljs-keyword">const</span> { email, password } = request.<span class="hljs-property">body</span> || {};
+
+  <span class="hljs-keyword">if</span> (!email || !password) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Email e senha são obrigatórios.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> user = db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM users WHERE email = ?&quot;</span>).<span class="hljs-title function_">get</span>(email);
+  <span class="hljs-keyword">if</span> (!user) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Credenciais inválidas.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> valid = <span class="hljs-keyword">await</span> bcrypt.<span class="hljs-title function_">compare</span>(password, user.<span class="hljs-property">password</span>);
+  <span class="hljs-keyword">if</span> (!valid) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">401</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Credenciais inválidas.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> token = jwt.<span class="hljs-title function_">sign</span>(
+    { <span class="hljs-attr">sub</span>: user.<span class="hljs-property">id</span>, <span class="hljs-attr">role</span>: user.<span class="hljs-property">role</span>, <span class="hljs-attr">name</span>: user.<span class="hljs-property">name</span> },
+    <span class="hljs-variable constant_">PRIVATE_KEY</span>,
+    { <span class="hljs-attr">algorithm</span>: <span class="hljs-string">&quot;RS256&quot;</span>, <span class="hljs-attr">expiresIn</span>: <span class="hljs-string">&quot;1h&quot;</span>, <span class="hljs-attr">issuer</span>: <span class="hljs-string">&quot;auth-service&quot;</span> },
+  );
+
+  <span class="hljs-keyword">return</span> { token, <span class="hljs-attr">user</span>: { <span class="hljs-attr">id</span>: user.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: user.<span class="hljs-property">name</span>, <span class="hljs-attr">role</span>: user.<span class="hljs-property">role</span> } };
+});
+
+<span class="hljs-comment">// GET /health</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-title function_">async</span> () =&gt; ({
+  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>,
+  <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;auth-service&quot;</span>,
+  <span class="hljs-attr">uptime</span>: process.<span class="hljs-title function_">uptime</span>(),
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">toISOString</span>(),
+}));
+
+app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-variable constant_">PORT</span>, <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;0.0.0.0&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) {
+    app.<span class="hljs-property">log</span>.<span class="hljs-title function_">error</span>(err);
+    process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
+  }
+  app.<span class="hljs-property">log</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">`auth-service rodando na porta <span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><p><strong>O que mudou em relação à versão Express (seção 11.2):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Express (seção 11)</th>
+<th>Fastify (seção 12)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dados</td>
+<td>Array em memória (<code>users = [...]</code>)</td>
+<td>SQLite com <code>better-sqlite3</code></td>
+</tr>
+<tr>
+<td>Parsing JSON</td>
+<td><code>app.use(express.json())</code></td>
+<td>Automático</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td><code>console.log</code></td>
+<td>Pino (JSON, request-id automático)</td>
+</tr>
+<tr>
+<td>Resposta</td>
+<td><code>res.json({ token })</code></td>
+<td><code>return { token }</code> (retorno direto)</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>Hash hardcoded no código</td>
+<td><code>bcrypt.hashSync</code> com seed dinâmico</td>
+</tr>
+</tbody></table>
+<h3 id="123-serviço-de-tarefas-task-service">12.3 Serviço de Tarefas (<code>task-service</code>)</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// services/tasks/index.js</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Fastify</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fastify&quot;</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Database</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;better-sqlite3&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title class_">Fastify</span>({ <span class="hljs-attr">logger</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">3002</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">DB_PATH</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_PATH</span> || <span class="hljs-string">&quot;./data/tasks.db&quot;</span>;
+
+<span class="hljs-comment">// ── Banco de dados ──────────────────────────────────────────</span>
+<span class="hljs-keyword">const</span> db = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Database</span>(<span class="hljs-variable constant_">DB_PATH</span>);
+
+db.<span class="hljs-title function_">exec</span>(<span class="hljs-string">`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    user_id TEXT NOT NULL,
+    done INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT (datetime(&#x27;now&#x27;))
+  )
+`</span>);
+
+<span class="hljs-comment">// Seed</span>
+<span class="hljs-keyword">const</span> taskCount = db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT COUNT(*) as total FROM tasks&quot;</span>).<span class="hljs-title function_">get</span>();
+<span class="hljs-keyword">if</span> (taskCount.<span class="hljs-property">total</span> === <span class="hljs-number">0</span>) {
+  db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;INSERT INTO tasks (title, user_id) VALUES (?, ?)&quot;</span>).<span class="hljs-title function_">run</span>(
+    <span class="hljs-string">&quot;Estudar microsserviços&quot;</span>,
+    <span class="hljs-string">&quot;user_1&quot;</span>,
+  );
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Seed: 1 tarefa criada&quot;</span>);
+}
+
+<span class="hljs-comment">// GET /tasks — lista tarefas (o gateway já validou o JWT)</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/tasks&quot;</span>, <span class="hljs-title function_">async</span> (request) =&gt; {
+  <span class="hljs-keyword">const</span> userId = request.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-user-id&quot;</span>];
+  <span class="hljs-comment">// Se tiver x-user-id, filtra por usuário; senão, retorna todas</span>
+  <span class="hljs-keyword">if</span> (userId) {
+    <span class="hljs-keyword">return</span> db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM tasks WHERE user_id = ?&quot;</span>).<span class="hljs-title function_">all</span>(userId);
+  }
+  <span class="hljs-keyword">return</span> db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM tasks&quot;</span>).<span class="hljs-title function_">all</span>();
+});
+
+<span class="hljs-comment">// POST /tasks — criar tarefa (identidade vem via header do gateway)</span>
+app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/tasks&quot;</span>, <span class="hljs-title function_">async</span> (request, reply) =&gt; {
+  <span class="hljs-keyword">const</span> { title } = request.<span class="hljs-property">body</span> || {};
+  <span class="hljs-keyword">const</span> userId = request.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-user-id&quot;</span>] || <span class="hljs-string">&quot;anonymous&quot;</span>;
+
+  <span class="hljs-keyword">if</span> (!title) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Título é obrigatório.&quot;</span> });
+  }
+
+  <span class="hljs-keyword">const</span> info = db
+    .<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;INSERT INTO tasks (title, user_id) VALUES (?, ?)&quot;</span>)
+    .<span class="hljs-title function_">run</span>(title, userId);
+
+  <span class="hljs-keyword">const</span> task = db
+    .<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM tasks WHERE id = ?&quot;</span>)
+    .<span class="hljs-title function_">get</span>(info.<span class="hljs-property">lastInsertRowid</span>);
+  <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">send</span>(task);
+});
+
+<span class="hljs-comment">// DELETE /tasks/:id — remover tarefa</span>
+app.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&quot;/tasks/:id&quot;</span>, <span class="hljs-title function_">async</span> (request, reply) =&gt; {
+  <span class="hljs-keyword">const</span> result = db
+    .<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&quot;DELETE FROM tasks WHERE id = ?&quot;</span>)
+    .<span class="hljs-title function_">run</span>(request.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>);
+  <span class="hljs-keyword">if</span> (result.<span class="hljs-property">changes</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">send</span>({ <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;Tarefa não encontrada.&quot;</span> });
+  }
+  <span class="hljs-keyword">return</span> reply.<span class="hljs-title function_">code</span>(<span class="hljs-number">204</span>).<span class="hljs-title function_">send</span>();
+});
+
+<span class="hljs-comment">// GET /health</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-title function_">async</span> () =&gt; ({
+  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>,
+  <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;task-service&quot;</span>,
+  <span class="hljs-attr">uptime</span>: process.<span class="hljs-title function_">uptime</span>(),
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">toISOString</span>(),
+}));
+
+app.<span class="hljs-title function_">listen</span>({ <span class="hljs-attr">port</span>: <span class="hljs-variable constant_">PORT</span>, <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;0.0.0.0&quot;</span> }, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) {
+    app.<span class="hljs-property">log</span>.<span class="hljs-title function_">error</span>(err);
+    process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
+  }
+  app.<span class="hljs-property">log</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">`task-service rodando na porta <span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><p><strong>Diferença fundamental:</strong> Na versão Express (seção 11.3), o task-service valida JWT localmente com a chave pública. Na versão Fastify, a autenticação é centralizada no Gateway (seção 6.6) — o task-service recebe apenas o <code>x-user-id</code> via header, já validado. Isso simplifica o serviço e elimina a duplicação da lógica de autenticação.</p>
+<h3 id="124-api-gateway-gateway">12.4 API Gateway (<code>gateway</code>)</h3>
+<p>Idêntico ao apresentado na seção 6.6. A implementação completa com <code>@fastify/http-proxy</code> e hook <code>preHandler</code> de JWT está documentada lá.</p>
+<h3 id="125-docker-compose">12.5 Docker Compose</h3>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># docker-compose.yml</span>
+<span class="hljs-attr">services:</span>
+  <span class="hljs-attr">gateway:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./gateway</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8080:8080&quot;</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">auth-service</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">task-service</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./keys/public.pem:/app/keys/public.pem:ro</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">AUTH_SERVICE_URL=http://auth-service:3001</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">TASK_SERVICE_URL=http://task-service:3002</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">JWT_PUBLIC_KEY_PATH=/app/keys/public.pem</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-net</span>
+
+  <span class="hljs-attr">auth-service:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./services/auth</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./keys/private.pem:/app/keys/private.pem:ro</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">auth-data:/app/data</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">PORT=3001</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">JWT_PRIVATE_KEY_PATH=/app/keys/private.pem</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PATH=/app/data/auth.db</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-net</span>
+
+  <span class="hljs-attr">task-service:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./services/tasks</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">tasks-data:/app/data</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">PORT=3002</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PATH=/app/data/tasks.db</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">app-net</span>
+
+<span class="hljs-attr">networks:</span>
+  <span class="hljs-attr">app-net:</span>
+    <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span>
+
+<span class="hljs-attr">volumes:</span>
+  <span class="hljs-attr">auth-data:</span>
+  <span class="hljs-attr">tasks-data:</span></code></pre><h3 id="126-executando-o-projeto">12.6 Executando o Projeto</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 1. Gerar par de chaves RSA</span>
+<span class="hljs-built_in">mkdir</span> -p keys
+openssl genrsa -out keys/private.pem 2048
+openssl rsa -<span class="hljs-keyword">in</span> keys/private.pem -pubout -out keys/public.pem
+
+<span class="hljs-comment"># 2. Subir todos os serviços</span>
+docker compose up --build
+
+<span class="hljs-comment"># 3. Login</span>
+curl -s -X POST http://localhost:8080/auth/login \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;email&quot;:&quot;aluno@ifsul.edu.br&quot;,&quot;password&quot;:&quot;senha123&quot;}&#x27;</span> | jq
+
+<span class="hljs-comment"># Salvar token numa variável</span>
+TOKEN=$(curl -s -X POST http://localhost:8080/auth/login \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;email&quot;:&quot;aluno@ifsul.edu.br&quot;,&quot;password&quot;:&quot;senha123&quot;}&#x27;</span> | jq -r <span class="hljs-string">&#x27;.token&#x27;</span>)
+
+<span class="hljs-comment"># 4. Criar tarefa (autenticado)</span>
+curl -s -X POST http://localhost:8080/api/tasks \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -H <span class="hljs-string">&quot;Authorization: Bearer <span class="hljs-variable">$TOKEN</span>&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;title&quot;:&quot;Minha primeira tarefa com Fastify&quot;}&#x27;</span> | jq
+
+<span class="hljs-comment"># 5. Listar tarefas</span>
+curl -s http://localhost:8080/api/tasks \
+  -H <span class="hljs-string">&quot;Authorization: Bearer <span class="hljs-variable">$TOKEN</span>&quot;</span> | jq
+
+<span class="hljs-comment"># 6. Health check do gateway</span>
+curl -s http://localhost:8080/health | jq</code></pre><h3 id="127-comparação-lado-a-lado">12.7 Comparação Lado a Lado</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Seção 11 (Express)</th>
+<th>Seção 12 (Fastify)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Framework</td>
+<td>Express 4.x</td>
+<td>Fastify 5.x</td>
+</tr>
+<tr>
+<td>Persistência</td>
+<td>Dados em memória (perdem-se ao reiniciar)</td>
+<td>SQLite via <code>better-sqlite3</code> (persistem via volumes)</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td><code>console.log</code> manual</td>
+<td>Pino nativo (JSON estruturado, níveis, request-id)</td>
+</tr>
+<tr>
+<td>Gateway</td>
+<td><code>http-proxy-middleware</code></td>
+<td><code>@fastify/http-proxy</code> com hook <code>preHandler</code></td>
+</tr>
+<tr>
+<td>Autenticação</td>
+<td>Duplicada em cada serviço</td>
+<td>Centralizada no gateway (via JWT + headers)</td>
+</tr>
+<tr>
+<td>JSON parsing</td>
+<td><code>app.use(express.json())</code> explícito</td>
+<td>Automático</td>
+</tr>
+<tr>
+<td>Respostas</td>
+<td><code>res.status(201).json(data)</code></td>
+<td><code>reply.code(201).send(data)</code> ou <code>return data</code></td>
+</tr>
+<tr>
+<td>Health check</td>
+<td>JSON simples</td>
+<td>JSON com uptime e timestamp</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Para o aluno:</strong> Execute ambas as versões. Na seção 11, reinicie os containers e observe que os dados desaparecem (memória). Na seção 12, reinicie e observe que os dados persistem (SQLite + volumes Docker). Essa diferença é fundamental para entender por que microsserviços em produção precisam de persistência real.</p>
+</blockquote>
+<hr>
+<h2 id="13-observabilidade-e-monitoramento">13. Observabilidade e Monitoramento</h2>
+<p>Em um monolito, um erro gera um stack trace completo em um único log. Em microsserviços, uma requisição pode percorrer 3, 5 ou 10 serviços diferentes. Sem ferramentas adequadas, depurar esse caminho é inviável.</p>
+<h3 id="131-os-três-pilares-da-observabilidade">13.1 Os Três Pilares da Observabilidade</h3>
+<table>
+<thead>
+<tr>
+<th>Pilar</th>
+<th>O que responde</th>
+<th>Ferramentas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Logs</strong></td>
+<td>&quot;O que aconteceu?&quot;</td>
+<td>Winston, Pino, ELK Stack</td>
+</tr>
+<tr>
+<td><strong>Métricas</strong></td>
+<td>&quot;Qual o estado do sistema?&quot;</td>
+<td>Prometheus, Grafana</td>
+</tr>
+<tr>
+<td><strong>Tracing distribuído</strong></td>
+<td>&quot;Qual caminho a requisição percorreu?&quot;</td>
+<td>OpenTelemetry, Jaeger</td>
+</tr>
+</tbody></table>
+<h3 id="132-correlation-id--rastreando-requisições">13.2 Correlation ID — Rastreando Requisições</h3>
+<p>A técnica mais simples e de maior impacto é gerar um <strong>identificador único</strong> no Gateway e propagá-lo para todos os serviços downstream:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// No Gateway: gerar e propagar o correlation ID</span>
+<span class="hljs-keyword">const</span> { <span class="hljs-attr">v4</span>: uuidv4 } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;uuid&quot;</span>);
+
+app.<span class="hljs-title function_">use</span>(<span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
+  <span class="hljs-comment">// Usa o ID do cliente se existir, ou gera um novo</span>
+  req.<span class="hljs-property">correlationId</span> = req.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-correlation-id&quot;</span>] || <span class="hljs-title function_">uuidv4</span>();
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">&quot;x-correlation-id&quot;</span>, req.<span class="hljs-property">correlationId</span>);
+  <span class="hljs-title function_">next</span>();
+});</code></pre><pre><code class="hljs language-javascript"><span class="hljs-comment">// Nos serviços internos: incluir o correlation ID nos logs</span>
+app.<span class="hljs-title function_">use</span>(<span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> correlationId = req.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;x-correlation-id&quot;</span>] || <span class="hljs-string">&quot;unknown&quot;</span>;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[<span class="hljs-subst">${correlationId}</span>] <span class="hljs-subst">${req.method}</span> <span class="hljs-subst">${req.url}</span>`</span>);
+  <span class="hljs-title function_">next</span>();
+});</code></pre><h3 id="133-health-checks">13.3 Health Checks</h3>
+<p>Cada serviço deve expor um endpoint de verificação de saúde:</p>
+<pre><code class="hljs language-javascript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/health&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.<span class="hljs-title function_">json</span>({
+    <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>,
+    <span class="hljs-attr">service</span>: <span class="hljs-string">&quot;task-service&quot;</span>,
+    <span class="hljs-attr">uptime</span>: process.<span class="hljs-title function_">uptime</span>(),
+    <span class="hljs-attr">timestamp</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">toISOString</span>(),
+  });
+});</code></pre><hr>
+<h2 id="14-padrões-de-resiliência">14. Padrões de Resiliência</h2>
+<h3 id="141-circuit-breaker-disjuntor">14.1 Circuit Breaker (Disjuntor)</h3>
+<p>O padrão Circuit Breaker previne <strong>cascatas de falha</strong>. Funciona como um disjuntor elétrico: quando detecta que um serviço downstream está falhando repetidamente, &quot;abre o circuito&quot; e retorna uma resposta de fallback imediata, evitando que requisições continuem sendo enviadas ao serviço degradado.</p>
+<pre><code class="hljs language-plaintext">  Estado FECHADO (normal)        Estado ABERTO (proteção)
+  ┌─────┐     ┌─────┐           ┌─────┐     ┌─────┐
+  │Svc A│────→│Svc B│           │Svc A│──X  │Svc B│ (fora do ar)
+  └─────┘     └─────┘           └──┬──┘     └─────┘
+  Requisições passam              │
+  normalmente                 Retorna fallback
+                              imediatamente</code></pre><p><strong>Implementação com a biblioteca <code>opossum</code>:</strong></p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">CircuitBreaker</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;opossum&quot;</span>);
+
+<span class="hljs-comment">// Função que chama o serviço externo</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">callUserService</span>(<span class="hljs-params">userId</span>) {
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`http://user-service:3003/users/<span class="hljs-subst">${userId}</span>`</span>);
+  <span class="hljs-keyword">if</span> (!response.<span class="hljs-property">ok</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Status <span class="hljs-subst">${response.status}</span>`</span>);
+  <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">json</span>();
+}
+
+<span class="hljs-comment">// Configuração do circuit breaker</span>
+<span class="hljs-keyword">const</span> breaker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CircuitBreaker</span>(callUserService, {
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">3000</span>, <span class="hljs-comment">// Timeout de 3 segundos</span>
+  <span class="hljs-attr">errorThresholdPercentage</span>: <span class="hljs-number">50</span>, <span class="hljs-comment">// Abre se 50% das chamadas falham</span>
+  <span class="hljs-attr">resetTimeout</span>: <span class="hljs-number">10000</span>, <span class="hljs-comment">// Tenta fechar após 10 segundos</span>
+});
+
+<span class="hljs-comment">// Fallback quando o circuito está aberto</span>
+breaker.<span class="hljs-title function_">fallback</span>(<span class="hljs-function">(<span class="hljs-params">userId</span>) =&gt;</span> ({
+  <span class="hljs-attr">id</span>: userId,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Usuário indisponível&quot;</span>,
+  <span class="hljs-attr">cached</span>: <span class="hljs-literal">true</span>,
+}));
+
+<span class="hljs-comment">// Uso</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;/orders/:id&quot;</span>, <span class="hljs-title function_">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> breaker.<span class="hljs-title function_">fire</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">userId</span>);
+  res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">order</span>: orderData, user });
+});</code></pre><h3 id="142-retry-com-backoff-exponencial">14.2 Retry com Backoff Exponencial</h3>
+<p>Para falhas transitórias (timeout de rede, serviço reiniciando), retentativas automáticas com intervalos crescentes:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchWithRetry</span>(<span class="hljs-params">url, maxRetries = <span class="hljs-number">3</span></span>) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> attempt = <span class="hljs-number">1</span>; attempt &lt;= maxRetries; attempt++) {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(url, { <span class="hljs-attr">signal</span>: <span class="hljs-title class_">AbortSignal</span>.<span class="hljs-title function_">timeout</span>(<span class="hljs-number">3000</span>) });
+      <span class="hljs-keyword">if</span> (response.<span class="hljs-property">ok</span>) <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">json</span>();
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Status <span class="hljs-subst">${response.status}</span>`</span>);
+    } <span class="hljs-keyword">catch</span> (err) {
+      <span class="hljs-keyword">if</span> (attempt === maxRetries) <span class="hljs-keyword">throw</span> err;
+      <span class="hljs-keyword">const</span> delay = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(<span class="hljs-number">2</span>, attempt) * <span class="hljs-number">100</span>; <span class="hljs-comment">// 200ms, 400ms, 800ms</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Tentativa <span class="hljs-subst">${attempt}</span> falhou. Retentando em <span class="hljs-subst">${delay}</span>ms...`</span>);
+      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> <span class="hljs-built_in">setTimeout</span>(resolve, delay));
+    }
+  }
+}</code></pre><h3 id="143-timeout">14.3 Timeout</h3>
+<p>Toda chamada de rede <strong>deve</strong> ter um timeout configurado. Uma chamada sem timeout pode bloquear recursos indefinidamente:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// fetch com timeout usando AbortSignal</span>
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;http://user-service:3003/users/42&quot;</span>, {
+  <span class="hljs-attr">signal</span>: <span class="hljs-title class_">AbortSignal</span>.<span class="hljs-title function_">timeout</span>(<span class="hljs-number">5000</span>), <span class="hljs-comment">// 5 segundos</span>
+});</code></pre><hr>
+<h2 id="15-erros-comuns-e-antipadrões">15. Erros Comuns e Antipadrões</h2>
+<table>
+<thead>
+<tr>
+<th>Antipadrão</th>
+<th>Problema</th>
+<th>Solução</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Monolito distribuído</strong></td>
+<td>Serviços &quot;separados&quot; mas que precisam ser deployados juntos</td>
+<td>Garantir independência real de deploy e dados</td>
+</tr>
+<tr>
+<td><strong>Banco compartilhado</strong></td>
+<td>Múltiplos serviços acessam as mesmas tabelas</td>
+<td>Um banco por serviço, dados via API</td>
+</tr>
+<tr>
+<td><strong>Comunicação síncrona em cadeia</strong></td>
+<td>A→B→C→D: latência acumulada, fragilidade</td>
+<td>Usar eventos assíncronos onde possível</td>
+</tr>
+<tr>
+<td><strong>Nano-serviços</strong></td>
+<td>Serviços pequenos demais (uma função cada)</td>
+<td>Agrupar por domínio de negócio, não por função</td>
+</tr>
+<tr>
+<td><strong>Sem observabilidade</strong></td>
+<td>Impossível depurar problemas em produção</td>
+<td>Logs + métricas + tracing desde o início</td>
+</tr>
+<tr>
+<td><strong>Sem health checks</strong></td>
+<td>Orquestrador não sabe se o serviço está saudável</td>
+<td>Expor <code>/health</code> em todo serviço</td>
+</tr>
+<tr>
+<td><strong>Compartilhar bibliotecas de domínio</strong></td>
+<td>Acoplamento via código compartilhado</td>
+<td>Cada serviço tem suas próprias entidades</td>
+</tr>
+<tr>
+<td><strong>Ignorar idempotência</strong></td>
+<td>Retentativas duplicam efeitos colaterais</td>
+<td>Usar IDs de requisição e verificar duplicatas</td>
+</tr>
+<tr>
+<td><strong>Adoção prematura</strong></td>
+<td>Microsserviços para 2 desenvolvedores e 3 telas</td>
+<td>Comece com monolito bem estruturado</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Ponto de atenção:</strong> O antipadrão mais perigoso é o <strong>monolito distribuído</strong> — quando os serviços estão fisicamente separados mas logicamente acoplados. Os sintomas incluem: &quot;preciso alterar 3 serviços para adicionar um campo&quot; ou &quot;não consigo fazer deploy do serviço A sem atualizar o serviço B ao mesmo tempo.&quot;</p>
+</blockquote>
+<hr>
+<h2 id="16-referências">16. Referências</h2>
+<ol>
+<li><strong>FOWLER, Martin. Microservices.</strong> martinfowler.com, 2014. Disponível em: <a href="https://martinfowler.com/articles/microservices.html">https://martinfowler.com/articles/microservices.html</a></li>
+<li><strong>FOWLER, Martin. MonolithFirst.</strong> martinfowler.com, 2015. Disponível em: <a href="https://martinfowler.com/bliki/MonolithFirst.html">https://martinfowler.com/bliki/MonolithFirst.html</a></li>
+<li><strong>NEWMAN, Sam. Building Microservices: Designing Fine-Grained Systems.</strong> 2ª ed. O&#39;Reilly Media, 2021.</li>
+<li><strong>RICHARDSON, Chris. Microservices Patterns.</strong> Manning Publications, 2018. Disponível em: <a href="https://microservices.io/patterns/">https://microservices.io/patterns/</a></li>
+<li><strong>EVANS, Eric. Domain-Driven Design: Tackling Complexity in the Heart of Software.</strong> Addison-Wesley, 2003.</li>
+<li><strong>Docker Documentation — Get Started.</strong> Disponível em: <a href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></li>
+<li><strong>Docker Documentation — Compose file reference.</strong> Disponível em: <a href="https://docs.docker.com/compose/compose-file/">https://docs.docker.com/compose/compose-file/</a></li>
+<li><strong>RFC 7519 — JSON Web Token (JWT).</strong> IETF, 2015. Disponível em: <a href="https://datatracker.ietf.org/doc/html/rfc7519">https://datatracker.ietf.org/doc/html/rfc7519</a></li>
+<li><strong>OPOSSUM — Circuit Breaker for Node.js.</strong> Disponível em: <a href="https://nodeshift.dev/opossum/">https://nodeshift.dev/opossum/</a></li>
+<li><strong>OpenTelemetry Documentation.</strong> Disponível em: <a href="https://opentelemetry.io/docs/">https://opentelemetry.io/docs/</a></li>
+<li><strong>ByteByteGo — System Design Concepts.</strong> Disponível em: <a href="https://bytebytego.com/">https://bytebytego.com/</a></li>
+<li><strong>COULOURIS, George et al. Sistemas Distribuídos: Conceitos e Projeto.</strong> 5ª ed. Porto Alegre: Bookman, 2013.</li>
+<li><strong>Fastify — Fast and low overhead web framework for Node.js.</strong> Documentação oficial. Disponível em: <a href="https://fastify.dev/docs/latest/">https://fastify.dev/docs/latest/</a></li>
+<li><strong>@fastify/http-proxy — Proxy your HTTP requests to another server.</strong> Disponível em: <a href="https://github.com/fastify/fastify-http-proxy">https://github.com/fastify/fastify-http-proxy</a></li>
+<li><strong>better-sqlite3 — The fastest and simplest library for SQLite3 in Node.js.</strong> Disponível em: <a href="https://github.com/WiseLibs/better-sqlite3">https://github.com/WiseLibs/better-sqlite3</a></li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>Nota:</strong> Este guia foi elaborado como material de apoio para a disciplina de Serviços Web. O conteúdo é baseado nas fontes técnicas citadas e de material de apoio e notas de aula legadas do professo. Para uso em produção, consulte sempre a documentação oficial e atualizada das tecnologias utilizadas. A criação do material foi apoiada por uso de IA, tendo esta sido utilizada como ferramenta de apoio ao processo de escrita e enriquecimento de exemplos, não como autora do conteúdo. Todo o artefato gerado foi revisado e ampliado pelo professor para atender às necessidades pedagógicas. O uso da IA se deu para proporcionar a criação material mais rico e didático.</p>
+</blockquote>
+
+    </main>
+    <footer>
+      <span>IFSul — Campus Passo Fundo · Serviços Web (PF_CC.44)</span>
+    </footer>
+  </div>
+</body>
+</html>

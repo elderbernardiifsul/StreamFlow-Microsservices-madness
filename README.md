@@ -63,7 +63,19 @@ Diferencie, em cada conclusão: **observação no código**, **resultado medido*
 
 ## O que você deve fazer
 
-### Material de apoio
+### Leitura obrigatória: guia de microsserviços e Docker
+
+A **leitura e a compreensão do Guia Completo de Arquitetura de Microsserviços e Containerização com Docker fazem parte obrigatória desta atividade**. O guia fornece os conceitos que devem fundamentar o diagnóstico, as propostas e a defesa oral; não basta executar os comandos do laboratório.
+
+Escolha o formato de leitura — ambos contêm o mesmo material:
+
+- **[Ler no navegador — versão HTML](https://elderbernardiifsul.github.io/StreamFlow-Microsservices-madness/guia_completo_microsservicos.html):** página responsiva, com sumário navegável, tabelas e exemplos de código formatados, para computador ou celular.
+- **[Ler na IDE — versão Markdown (.md)](docs/guia_completo_microsservicos.md):** abra o arquivo no editor e use a pré-visualização Markdown. Também pode ser lido diretamente no GitHub.
+- **[Arquivo HTML para leitura local](docs/guia_completo_microsservicos.html):** baixe o arquivo e abra-o no navegador; o conteúdo e a estilização funcionam sem conexão.
+
+Leia o guia antes de concluir o relatório e retome as seções relevantes durante os experimentos. Ao justificar uma decisão, relacione o conceito estudado à evidência obtida na StreamFlow e indique a seção consultada. Na defesa oral, esteja preparado para explicar essa relação com suas próprias palavras. Essa compreensão será observada nos critérios de análise da arquitetura e qualidade das respostas já previstos na rubrica.
+
+### Demais materiais e roteiro prático
 
 1. **Projeto StreamFlow:** Repositório com o código-fonte da arquitetura de microsserviços (instruções de setup em `docs/SETUP.md`)
 2. **Especificação arquitetural:** `arquitetura_streamflow_reference.md` — documentação técnica dos serviços, fluxos e bounded contexts
