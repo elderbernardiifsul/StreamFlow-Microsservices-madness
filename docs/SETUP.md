@@ -3,8 +3,10 @@
 ## Pré-requisitos
 
 - **Docker** ≥ 24.0 e **Docker Compose** ≥ 2.20
-- **Node.js** ≥ 20 (apenas para desenvolvimento local sem Docker)
+- **Node.js** 22 (compatível com os Dockerfiles atuais; use uma linha ainda suportada) (apenas para desenvolvimento local sem Docker)
 - **Git** (para clonar o repositório)
+- **curl** e **jq** para os comandos deste roteiro; Bash em Linux, macOS ou WSL.
+- Acesso ao daemon Docker. Node.js no host não é necessário para executar via Compose.
 
 Verifique sua instalação:
 ```bash
@@ -19,12 +21,14 @@ node --version
 
 ### 1. Clonar o repositório
 ```bash
-git clone <url-do-repositorio>
-cd projeto/
+git clone https://github.com/elderbernardiifsul/StreamFlow-Microsservices-madness.git
+cd StreamFlow-Microsservices-madness
 ```
 
+Se estiver usando a cópia da disciplina, entre em `sw/atividades/analise_critica_microsservicos_netflix/projeto`. Execute os comandos na pasta que contém `docker-compose.yml`. Para entregar, use seu fork.
+
 ### 2. Verificar as chaves RSA
-O projeto já inclui um par de chaves RSA para JWT. Se quiser gerar novas:
+O projeto já inclui um par público de chaves RSA exclusivamente para o laboratório. Não reutilize essas chaves ou credenciais em aplicações reais. Se quiser gerar novas:
 ```bash
 mkdir -p keys
 openssl genrsa -out keys/private.pem 2048
@@ -38,6 +42,8 @@ docker compose up --build
 
 Você verá logs de todos os 8 serviços (gateway + 7 microsserviços).
 O gateway estará acessível em `http://localhost:8080`.
+
+Aguarde a inicialização e confira `docker compose ps` e `/health` antes de medir. A ordem de inicialização não garante que os serviços já estejam prontos.
 
 ### 4. Testar o sistema
 
@@ -96,7 +102,7 @@ curl -s http://localhost:8080/health | jq
 ```bash
 docker compose down
 
-# Para apagar também os dados persistidos (volumes):
+# Opcional e destrutivo: apaga todos os dados do laboratório; salve as evidências antes:
 docker compose down -v
 ```
 
@@ -115,7 +121,7 @@ npm install
 npm run dev
 ```
 
-As variáveis de ambiente podem ser ajustadas diretamente ou via arquivo `.env`.
+Crie o diretório de dados antes de iniciar cada serviço (`mkdir -p data`). Exporte explicitamente as variáveis de ambiente: o código não carrega `.env` automaticamente. Configure também os caminhos das chaves RSA e o mesmo `DB_PATH` absoluto para billing e analytics. Inicialize billing antes de consultar analytics.
 Para o gateway, ajuste as URLs dos serviços para `http://localhost:<porta>`.
 
 ---

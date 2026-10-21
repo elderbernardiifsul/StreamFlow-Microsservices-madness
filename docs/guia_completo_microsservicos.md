@@ -1,3 +1,5 @@
+> Revisão de ambiente em 20/10/2026: exemplos genéricos usam Node.js 22. O laboratório StreamFlow usa `node:22-bookworm-slim` (Debian); comandos `apk` dos exemplos Alpine não se aplicam aos seus contêineres. Consulte `SETUP.md` e `DEBUG.md` para executar a atividade.
+
 # Guia Completo: Arquitetura de Microsserviços e Containerização com Docker
 
 **Disciplina:** Serviços Web (PF_CC.44)  
@@ -849,7 +851,7 @@ docker compose version
 ```bash
 # Imagens
 docker images                    # Lista imagens locais
-docker pull node:20-alpine       # Baixa imagem do registry
+docker pull node:22-alpine       # Baixa imagem do registry
 docker build -t meu-app .        # Constrói imagem a partir do Dockerfile
 docker rmi <image_id>            # Remove imagem
 
@@ -886,7 +888,7 @@ O Dockerfile é um arquivo texto que contém as **instruções sequenciais** par
 ```dockerfile
 # ---- Imagem base ----
 # Usa Node.js 20 com Alpine Linux (imagem leve, ~50MB)
-FROM node:20-alpine
+FROM node:22-alpine
 
 # ---- Diretório de trabalho ----
 # Cria e define /app como diretório de trabalho
@@ -916,7 +918,7 @@ CMD ["node", "index.js"]
 
 | Instrução | Propósito                              | Exemplo                    |
 | --------- | -------------------------------------- | -------------------------- |
-| `FROM`    | Define imagem base                     | `FROM node:20-alpine`      |
+| `FROM`    | Define imagem base                     | `FROM node:22-alpine`      |
 | `WORKDIR` | Define diretório de trabalho           | `WORKDIR /app`             |
 | `COPY`    | Copia arquivos do host para a imagem   | `COPY package.json ./`     |
 | `RUN`     | Executa comando durante o build        | `RUN npm ci`               |
@@ -1293,7 +1295,7 @@ app.listen(PORT, () => {
 ### 11.4 Dockerfile (idêntico para ambos os serviços)
 
 ```dockerfile
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
